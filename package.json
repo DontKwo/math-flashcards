@@ -1,0 +1,22 @@
+{
+  "name": "formulaflash-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Flashcards where the answer can be a real equation",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "vitest": "^1.0.0",
+    "dependency-cruiser": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

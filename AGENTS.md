@@ -1,0 +1,11 @@
+# Agent rules for formulaflash
+- Read PLAN.md. Work one milestone at a time. Don't skip tests.
+- Layering: packages/core must stay pure TS (no DOM/React/Capacitor). CI enforces it.
+- Everything pluggable goes through the registry. Don't hard-code card types/checkers/modes in UI code.
+- Math correctness is the product: any change to checking/ must update/add corpus cases first (TDD).
+- Randomness must be injectable + seedable. No Math.random() in core.
+- Never commit secrets. Needed secrets/keystores are listed in docs/HUMAN_SETUP.md.
+- Commit with Conventional Commits. Keep PRs small. Update docs and this file when conventions change.
+- Pinned versions of mathlive / @cortex-js/compute-engine / katex: upgrade only with the full corpus + e2e passing.
+- When unsure: choose the more configurable/extensible option, record a short ADR in docs/adr/.
+- Commands: pnpm dev | test | test:e2e | lint | typecheck | android:apk | desktop:dev

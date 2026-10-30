@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter app run build
+      - run: cd apps/app && npx cap sync android
+      - run: cd apps/app/android && ./gradlew assembleRelease
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: apps/app/android/app/build/outputs/apk/release/app-release-unsigned.apk

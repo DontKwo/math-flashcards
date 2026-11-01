@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "description": "Flashcards where the answer can be a real equation",
   "scripts": {
+    "dev": "pnpm --filter app run dev",
+    "build": "pnpm --filter app run build",
+    "android:apk": "node scripts/build-apk.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",

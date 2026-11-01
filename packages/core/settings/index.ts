@@ -1,13 +1,13 @@
 import {
   DEFAULT_SETTINGS,
-  ResolvedSettingsResult,
-  SettingsOverrides,
-  SettingsProvenanceMap,
+  type ResolvedSettingsResult,
+  type SettingsOverrides,
+  type SettingsProvenanceMap,
   SettingsSchema,
-  SettingsValues,
-} from './types';
+  type SettingsValues,
+} from './types.js';
 
-export * from './types';
+export * from './types.js';
 
 /**
  * Resolves settings across layers (card overrides > set overrides > app settings > default)

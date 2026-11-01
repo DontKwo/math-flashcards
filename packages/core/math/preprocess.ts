@@ -85,9 +85,8 @@ export function preprocessLatex(input: string, options: PreprocessOptions = {}):
     s = s.replace(/\\varsigma(?![a-zA-Z])/g, '\\sigma');
   }
 
-  // 6. Transform decorated symbols into distinct identifiers:
-  // \hat{R} -> R__hat, \bar{x} -> x__bar, \vec{v} -> v__vec, \dot{x} -> x__dot, etc.
-  // If accentsMatter is false, strip decorators instead of preserving them.
+  // 6. Transform decorated symbols into distinct identifiers (\hat{R} -> R__hat).
+  // If accentsMatter is false, strip decorators instead.
   const decoratorMap: Record<string, string> = {
     hat: 'hat',
     widehat: 'hat',
@@ -116,7 +115,7 @@ export function preprocessLatex(input: string, options: PreprocessOptions = {}):
   }
 
   // 7. Strip \mathrm and \text wrappers around variables while preserving them for unit strings
-  s = s.replace(/\\(mathrm|text|operatorname|mathbf|mathit)\s*\{([^{}]+)\}/g, (match, cmd, content) => {
+  s = s.replace(/\\(mathrm|text|operatorname|mathbf|mathit)\s*\{([^{}]+)\}/g, (_match, cmd, content) => {
     const trimmed = content.trim();
     if (isUnitString(trimmed, preservedUnits)) {
       return `\\${cmd}{${trimmed}}`;

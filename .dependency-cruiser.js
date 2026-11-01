@@ -10,10 +10,14 @@ module.exports = {
       name: 'core-must-not-depend-on-react-or-dom',
       severity: 'error',
       from: { path: '^packages/core' },
-      to: { module: '^(react|react-dom|@capacitor)' }
+      to: { path: '^(react|react-dom|@capacitor)' }
     }
   ],
   options: {
+    exclude: '(^apps/app/android|^apps/app/dist|node_modules)',
+    doNotFollow: {
+      path: '(^apps/app/android|^apps/app/dist|node_modules)'
+    },
     tsPreCompilationDeps: true,
     tsConfig: { fileName: 'tsconfig.json' }
   }

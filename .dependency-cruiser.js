@@ -1,26 +1,42 @@
 module.exports = {
-  forbidden: [
+  "forbidden": [
     {
-      name: 'core-must-not-depend-on-apps',
-      severity: 'error',
-      from: { path: '^packages/core' },
-      to: { path: '^apps/' }
+      "name": "core-must-not-depend-on-apps",
+      "severity": "error",
+      "from": {
+        "path": "^packages/core"
+      },
+      "to": {
+        "path": "^apps/"
+      }
     },
     {
-      name: 'core-must-not-depend-on-react-or-dom',
-      severity: 'error',
-      from: { path: '^packages/core' },
-      to: { path: '^(?:react|react-dom|@capacitor)' }
+      "name": "core-must-not-depend-on-react-or-dom",
+      "severity": "error",
+      "from": {
+        "path": "^packages/core"
+      },
+      "to": {
+        "path": "^(react|react-dom|@capacitor)"
+      }
     }
   ],
-  options: {
-    doNotFollow: {
-      path: 'node_modules'
+  "options": {
+    "doNotFollow": {
+      "path": [
+        "android",
+        "node_modules"
+      ]
     },
-    exclude: {
-      path: ['^apps/app/android', 'node_modules', 'dist']
+    "exclude": {
+      "path": [
+        "^apps/app/android",
+        "node_modules"
+      ]
     },
-    tsPreCompilationDeps: true,
-    tsConfig: { fileName: 'tsconfig.json' }
+    "tsPreCompilationDeps": true,
+    "tsConfig": {
+      "fileName": "tsconfig.json"
+    }
   }
 };

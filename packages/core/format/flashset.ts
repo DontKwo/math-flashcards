@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { CardSetSchema, CardSchema, CardProgressSchema, CardSet, Card, CardProgress } from '../model/index';
+import { CardSetSchema, CardSchema, CardProgressSchema } from '../model/index.js';
+import type { CardSet, Card, CardProgress } from '../model/index.js';
 
 // Bundle schema definition
 export const FlashsetBundleSchema = z.object({
@@ -40,10 +41,13 @@ export function importFlashset(jsonString: string): FlashsetBundle {
     }
 
     return bundle;
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
       throw new Error(`Schema validation failed: ${error.message}`);
     }
-    throw new Error(`Invalid flashset: ${error.message}`);
+    if (error instanceof Error) {
+      throw new Error(`Invalid flashset: ${error.message}`);
+    }
+    throw new Error('Invalid flashset: unknown error');
   }
 }

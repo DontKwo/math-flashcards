@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import type { MathfieldElement } from 'mathlive';
 import 'mathlive';
 
-declare global {
+declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {

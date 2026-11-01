@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { exportFlashset, importFlashset, FlashsetBundle } from './flashset';
-import { CardSet, Card } from '../model/index';
+import { exportFlashset, importFlashset } from './flashset.js';
+import type { CardSet, Card } from '../model/index.js';
 
 describe('flashset format', () => {
   const mockSet: CardSet = {
@@ -49,7 +49,7 @@ describe('flashset format', () => {
   });
 
   it('should reject schema violations', () => {
-    const bundle: any = {
+    const bundle = {
       version: 1,
       schemaVersion: '1.0.0',
       exportedAt: 1000,

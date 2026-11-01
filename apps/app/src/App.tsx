@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { registry, type Verdict } from '@formulaflash/core';
 import { MathDisplay } from './components/MathDisplay.tsx';
 import { VirtualMathToolbar } from './components/VirtualMathToolbar.tsx';
+import { MathLiveField } from './components/MathLiveField.tsx';
 import { SAMPLE_DECK } from './data/sample-deck.ts';
 
 type AppMode = 'study' | 'learn';
@@ -176,16 +177,11 @@ export const App: React.FC = () => {
             <label htmlFor="math-answer-input" className="input-label">
               Type Equation (LaTeX / ASCII)
             </label>
-            <input
-              id="math-answer-input"
-              type="text"
-              className="math-input"
+            <MathLiveField
               value={userAnswer}
+              onChange={setUserAnswer}
               placeholder="e.g. PV = nRT"
-              autoComplete="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              onChange={(e) => setUserAnswer(e.target.value)}
+              className="math-input"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleCheckAnswer();

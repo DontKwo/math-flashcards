@@ -70,3 +70,4 @@ Copy-Item -Path $SourceApk -Destination $TargetApk -Force
 $SizeMb = [math]::Round((Get-Item $TargetApk).Length / 1MB, 2)
 Write-Host "`nBuild successful!" -ForegroundColor Green
 Write-Host "APK generated: $TargetApk ($SizeMb MB)" -ForegroundColor Green
+

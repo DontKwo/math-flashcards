@@ -1,11 +1,10 @@
 {
+  "compilerOptions": {
+    "composite": true
+  },
   "files": [],
   "references": [
-    {
-      "path": "./packages/core"
-    },
-    {
-      "path": "./apps/app"
-    }
+    { "path": "./packages/core" },
+    { "path": "./apps/app" }
   ]
 }

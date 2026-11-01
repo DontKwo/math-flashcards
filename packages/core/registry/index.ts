@@ -1,4 +1,6 @@
-// packages/core/registry/index.ts
+import type { AnswerChecker } from '../checking/types.js';
+import { textChecker } from '../checking/text-checker.js';
+import { mathChecker } from '../checking/math-checker.js';
 
 export interface RegisterOptions {
   overwrite?: boolean;
@@ -15,7 +17,7 @@ export interface CheckerDef {
   id: string;
   name?: string;
   description?: string;
-  check?: (given: unknown, spec: unknown, options?: unknown) => unknown;
+  check?: (given: any, spec: any, options?: any) => any;
   [key: string]: unknown;
 }
 
@@ -123,6 +125,18 @@ export class Registry {
     }
     return categoryMap.delete(id);
   }
+
+  public registerChecker(checker: AnswerChecker, options?: RegisterOptions): void {
+    this.register('checkers', checker.id, checker, options);
+  }
+
+  public getChecker(id: string): AnswerChecker | undefined {
+    return this.has('checkers', id) ? (this.get('checkers', id) as unknown as AnswerChecker) : undefined;
+  }
 }
 
 export const registry = new Registry();
+
+// Register built-in checkers
+registry.registerChecker(textChecker);
+registry.registerChecker(mathChecker);

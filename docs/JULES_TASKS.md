@@ -1,14 +1,13 @@
 # Google Jules Tasks & Prompts
 
-Run each prompt below in a separate Jules task / session. Each task maps to a specific milestone deliverable in `PLAN.md` with explicit architectural constraints.
+Run each prompt below in a separate Jules task / session. Each task maps to a specific deliverable in `PLAN.md` with explicit architectural constraints.
 
 ---
 
 ## Task 1: Storage Repository Interface and In-Memory Adapter in Core (Milestone 1D)
 
-**Branch name**: `feat/storage-repository`
+**Status**: In Progress (Session `9880872783262451660`)
 
-### Jules Prompt:
 ```text
 Implement the storage repository interface and in-memory adapter in packages/core.
 
@@ -50,11 +49,120 @@ Requirements:
 
 ---
 
-## Task 2: .flashset Format Serializer and Validator in Core (Milestone 1E)
+## Task 2: MathLive WYSIWYG Equation Editor Component in apps/app (Word-style math typing)
 
-**Branch name**: `feat/flashset-format`
+**Status**: Queued (Next in orchestrator queue)
 
-### Jules Prompt:
+```text
+Task: Replace raw LaTeX text input with MathLive WYSIWYG equation editor in apps/app.
+
+Context & Rules:
+- Refer to PLAN.md Section 6.1 (Math input component wrapper).
+- In apps/app/package.json, `mathlive` is already installed (^0.111.1).
+- The user must NOT type raw LaTeX commands (no backslashes required for basic math).
+- Typing must behave like Microsoft Word's Equation Editor:
+  * Typing `/` creates a visual fraction block with numerator/denominator.
+  * Typing `^` creates a superscript.
+  * Typing `_` creates a subscript.
+  * Typing `sqrt` creates a square root.
+  * Arrow keys and touch navigate inside math structures.
+- Strict linter rule: no emojis in code, comments <= 2 lines, explicit types on all functions.
+
+Requirements:
+1. Create `apps/app/src/components/MathLiveField.tsx`:
+   - Declare custom element type for `<math-field>` in React/JSX.
+   - Props:
+     * value: string (LaTeX representation)
+     * onChange: (latex: string) => void
+     * placeholder?: string
+     * className?: string
+     * readOnly?: boolean
+   - Use `useRef` to attach to `<math-field>`.
+   - Listen to `input` event on the math-field element and emit `mathfield.value` to `onChange`.
+   - Configure math-field options:
+     * smartSuperscript: true
+     * smartFence: true
+     * defaultMode: "math"
+   - Support mobile touch interaction with the native mathlive virtual keyboard or floating toolbar.
+
+2. Update `apps/app/src/App.tsx`:
+   - Replace the raw `<input type="text" className="math-input" />` in Learn mode with `<MathLiveField>`.
+   - When the user types on their native keyboard (`/`, `^`, `_`, letters, numbers), MathLive renders the equation visually in real-time.
+   - The "Check Answer" button passes `mathfield.value` to `registry.getChecker('math').check(...)`.
+
+3. Verification:
+   - Run: `pnpm run typecheck`
+   - Run: `npx eslint .`
+   - Run: `uv run --no-project python C:/Users/Josh/projects/josh-ai-tools/scripts/claudemd_linter.py . --level strict`
+```
+
+---
+
+## Task 3: Set Management, Card Creator Modal, and Settings UI in apps/app
+
+**Status**: Queued
+
+```text
+Task: Implement Set Management, Card Creator Modal, and Settings Drawer in apps/app.
+
+Context & Rules:
+- Currently, apps/app only displays a static sample deck and does not allow users to create cards, add new sets, switch sets, or configure settings.
+- Refer to PLAN.md Section 10 (Screens & UX) and Section 4.
+- In apps/app, cards and sets should be stored in memory and local storage so user-created cards persist across app restarts.
+- Use `<MathLiveField>` inside the Card Creator so users can visually type equations when creating new flashcards.
+- Strict linter rule: no emojis in code, comments <= 2 lines, explicit types on all functions.
+
+Requirements:
+1. Create `apps/app/src/data/storage.ts`:
+   - Store custom card sets and cards in `localStorage` with fallback to `SAMPLE_DECK`.
+   - Provide helper functions:
+     * `loadSets(): FlashcardSet[]`
+     * `saveSet(set: FlashcardSet): void`
+     * `deleteSet(setId: string): void`
+     * `saveCard(setId: string, card: FlashcardItem): void`
+     * `deleteCard(setId: string, cardId: string): void`
+
+2. Create `apps/app/src/components/CardCreatorModal.tsx`:
+   - Modal dialog to add a new flashcard to the active set.
+   - Fields:
+     * Title (e.g. "Coulomb's Law")
+     * Category / Tag
+     * Prompt / Question text
+     * Equation Answer: editable visually using `<MathLiveField>`
+     * Optional Hint
+     * Optional Explanation
+   - "Save Card" button adds the card to current set and persists it to local storage.
+
+3. Create `apps/app/src/components/SetSelectorModal.tsx`:
+   - Modal dialog to view all sets, select active set, or create a new set (Name + Category).
+
+4. Create `apps/app/src/components/SettingsModal.tsx`:
+   - Settings dialog:
+     * Toggles for Answer Checking:
+       - Accents Matter (e.g. \hat{\rho} vs \rho)
+       - Greek Variants Equal (\epsilon vs \varepsilon)
+       - Allow Equation Side-Swap (A = B equals B = A)
+     * Persist settings to `localStorage`.
+
+5. Update `apps/app/src/App.tsx`:
+   - Add header action buttons:
+     * "Decks" button -> opens `SetSelectorModal`
+     * "Add Card" button -> opens `CardCreatorModal`
+     * "Settings" button -> opens `SettingsModal`
+   - Newly created cards are immediately playable in both "Cards" (Flip) and "Learn" modes.
+
+6. Verification:
+   - Run: `pnpm run typecheck`
+   - Run: `npx eslint .`
+   - Run: `uv run --no-project python C:/Users/Josh/projects/josh-ai-tools/scripts/claudemd_linter.py . --level strict`
+```
+
+---
+
+## Task 4: .flashset Format Serializer and Validator in Core (Milestone 1E)
+
+**Status**: Queued
+
 ```text
 Implement the .flashset format serializer and validator in packages/core.
 
@@ -93,11 +201,10 @@ Requirements:
 
 ---
 
-## Task 3: Numeric & Cloze Answer Checkers in Core (Milestone 3C)
+## Task 5: Numeric & Cloze Answer Checkers in Core (Milestone 3C)
 
-**Branch name**: `feat/numeric-cloze-checkers`
+**Status**: Queued
 
-### Jules Prompt:
 ```text
 Implement NumericChecker and ClozeChecker in packages/core/checking.
 
@@ -142,11 +249,10 @@ Requirements:
 
 ---
 
-## Task 4: Pure Learn Mode State Machine & Round Queue in Core (Milestone 6A)
+## Task 6: Pure Learn Mode State Machine & Round Queue in Core (Milestone 6A)
 
-**Branch name**: `feat/learn-engine-core`
+**Status**: Queued
 
-### Jules Prompt:
 ```text
 Implement the pure Learn mode state machine and round queue in packages/core/learn.
 
@@ -193,11 +299,10 @@ Requirements:
 
 ---
 
-## Task 5: Multiple-Choice Distractor Generator in Core (Milestone 6B)
+## Task 7: Multiple-Choice Distractor Generator in Core (Milestone 6B)
 
-**Branch name**: `feat/learn-distractor-generator`
+**Status**: Queued
 
-### Jules Prompt:
 ```text
 Implement the multiple-choice distractor generator for Learn mode in packages/core/learn.
 
@@ -226,4 +331,3 @@ Requirements:
    - Test deterministic output when given the same RNG seed.
    - Run vitest and verify all tests pass.
 ```
-

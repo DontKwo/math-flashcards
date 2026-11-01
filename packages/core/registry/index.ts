@@ -17,7 +17,7 @@ export interface CheckerDef {
   id: string;
   name?: string;
   description?: string;
-  check?: (given: any, spec: any, options?: any) => any;
+  check?: (given: unknown, spec: unknown, options?: unknown) => unknown;
   [key: string]: unknown;
 }
 

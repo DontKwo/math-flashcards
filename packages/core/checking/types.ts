@@ -1,9 +1,6 @@
-export interface Verdict {
-  correct: boolean;
-  via: 'exact' | 'normalized' | 'structural' | 'numeric' | 'fuzzy' | 'override';
-  closeness?: number;
-  message?: string;
-}
+import type { Verdict } from '../model/index.js';
+
+export type { Verdict };
 
 export interface AnswerChecker {
   id: string;

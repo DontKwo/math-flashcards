@@ -1,6 +1,6 @@
 import { ComputeEngine } from '@cortex-js/compute-engine';
-import type { AnswerChecker, Verdict } from './types';
-import { preprocessLatex, type PreprocessOptions } from './preprocess';
+import type { AnswerChecker, Verdict } from './types.js';
+import { preprocessLatex, type PreprocessOptions } from '../math/preprocess.js';
 
 export interface MathCheckerOptions extends PreprocessOptions {
   allowTier1?: boolean;
@@ -59,8 +59,8 @@ export class MathChecker implements AnswerChecker {
           const isExpectedEqual = this.isEqualExpr(expectedExpr);
 
           if (isGivenEqual && isExpectedEqual) {
-            const gOps = givenExpr.ops;
-            const eOps = expectedExpr.ops;
+            const gOps = (givenExpr as unknown as { ops?: { isSame: (x: unknown) => boolean }[] }).ops;
+            const eOps = (expectedExpr as unknown as { ops?: { isSame: (x: unknown) => boolean }[] }).ops;
 
             if (gOps && eOps && gOps.length === 2 && eOps.length === 2) {
               if (gOps[0].isSame(eOps[1]) && gOps[1].isSame(eOps[0])) {

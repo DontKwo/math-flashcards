@@ -1,4 +1,3 @@
-export * from './types';
-export * from './text-checker';
-export * from './preprocess';
-export * from './math-checker';
+export * from './types.js';
+export * from './text-checker.js';
+export * from './math-checker.js';

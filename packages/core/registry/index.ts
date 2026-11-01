@@ -13,11 +13,14 @@ export interface CardTypeDef {
   [key: string]: unknown;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CheckerFn = (given: any, spec: any, options?: any) => any;
+
 export interface CheckerDef {
   id: string;
   name?: string;
   description?: string;
-  check?: (given: unknown, spec: unknown, options?: unknown) => unknown;
+  check?: CheckerFn;
   [key: string]: unknown;
 }
 
@@ -127,7 +130,7 @@ export class Registry {
   }
 
   public registerChecker(checker: AnswerChecker, options?: RegisterOptions): void {
-    this.register('checkers', checker.id, checker, options);
+    this.register('checkers', checker.id, checker as CheckerDef, options);
   }
 
   public getChecker(id: string): AnswerChecker | undefined {

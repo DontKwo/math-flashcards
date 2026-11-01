@@ -1,6 +1,8 @@
 import type { AnswerChecker } from '../checking/types.js';
 import { textChecker } from '../checking/text-checker.js';
 import { mathChecker } from '../checking/math-checker.js';
+import { numericChecker } from '../checking/numeric-checker.js';
+import { clozeChecker } from '../checking/cloze-checker.js';
 
 export interface RegisterOptions {
   overwrite?: boolean;
@@ -143,3 +145,5 @@ export const registry = new Registry();
 // Register built-in checkers
 registry.registerChecker(textChecker);
 registry.registerChecker(mathChecker);
+registry.registerChecker(numericChecker);
+registry.registerChecker(clozeChecker);

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { MathfieldElement } from 'mathlive';
 import 'mathlive';
+import { customKeyboardLayouts } from './MathKeyboards.js';
 
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -36,6 +37,15 @@ export const MathLiveField: React.FC<MathLiveFieldProps> = ({
 }) => {
   const mfRef = useRef<MathfieldElement>(null);
 
+  useEffect((): void => {
+    if (typeof window !== 'undefined' && 'mathVirtualKeyboard' in window) {
+      const keyboard = window.mathVirtualKeyboard as {
+        layouts: unknown[];
+      };
+      keyboard.layouts = ['default', ...customKeyboardLayouts];
+    }
+  }, []);
+
   useEffect((): (() => void) => {
     const mf = mfRef.current;
     if (!mf) return () => {};
@@ -43,6 +53,7 @@ export const MathLiveField: React.FC<MathLiveFieldProps> = ({
     mf.smartSuperscript = true;
     mf.smartFence = true;
     mf.defaultMode = 'math';
+    mf.mathVirtualKeyboardPolicy = 'manual';
 
     const handleInput = (e: Event): void => {
       onChange((e.target as MathfieldElement).value);

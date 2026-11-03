@@ -4,6 +4,7 @@ import { MathDisplay } from './components/MathDisplay.tsx';
 import { VirtualMathToolbar } from './components/VirtualMathToolbar.tsx';
 import { MathLiveField } from './components/MathLiveField.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.ts';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
 import { SettingsModal, loadSettings, type AppSettings } from './components/SettingsModal.tsx';
 import { loadSets, saveSet, saveCard, type FlashcardSet } from './data/storage.ts';
@@ -27,6 +28,38 @@ export const App: React.FC = () => {
   const [showCardCreator, setShowCardCreator] = useState(false);
   const [showSetSelector, setShowSetSelector] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+
+  const anyModalOpen = showCardCreator || showSetSelector || showSettings;
+
+  useKeyboardShortcuts({
+    onSpace: () => {
+      if (mode === 'study' && !anyModalOpen) {
+        setIsFlipped((prev) => !prev);
+      }
+    },
+    onLeft: () => {
+      if (!anyModalOpen) handlePrev();
+    },
+    onRight: () => {
+      if (!anyModalOpen) handleNext();
+    },
+    onEnter: () => {
+      if (mode === 'learn' && !anyModalOpen && !verdict) {
+        handleCheckAnswer();
+      }
+    },
+    onEscape: () => {
+      if (showCardCreator) setShowCardCreator(false);
+      if (showSetSelector) setShowSetSelector(false);
+      if (showSettings) setShowSettings(false);
+    },
+    onNumber: (num) => {
+      // Future multiple-choice handling placeholder
+      if (mode === 'learn' && !anyModalOpen) {
+        console.log(`Option ${num} selected`);
+      }
+    },
+  });
 
   useEffect(() => {
     const loadedSets = loadSets();

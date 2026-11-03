@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import type { MathfieldElement } from 'mathlive';
 import 'mathlive';
 
-declare module 'react' {
+declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace React {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -11,6 +11,7 @@ declare module 'react' {
         'math-field': React.DetailedHTMLProps<React.HTMLAttributes<MathfieldElement>, MathfieldElement> & {
           class?: string;
           readonly?: boolean;
+          ref?: React.RefObject<MathfieldElement | null>;
         };
       }
     }
@@ -26,14 +27,14 @@ export interface MathLiveFieldProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
 }
 
-export const MathLiveField: React.FC<MathLiveFieldProps> = ({
+export const MathLiveField = ({
   value,
   onChange,
   placeholder,
   className,
   readOnly,
   onKeyDown,
-}) => {
+}: MathLiveFieldProps): React.ReactElement => {
   const mfRef = useRef<MathfieldElement>(null);
 
   useEffect((): (() => void) => {

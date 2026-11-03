@@ -6,10 +6,11 @@ import { MathLiveField } from './components/MathLiveField.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
 import { SettingsModal, loadSettings, type AppSettings } from './components/SettingsModal.tsx';
+import { AnalyticsView } from './components/AnalyticsView.tsx';
 import { loadSets, saveSet, saveCard, type FlashcardSet } from './data/storage.ts';
 import type { FlashcardItem } from './data/sample-deck.ts';
 
-type AppMode = 'study' | 'learn';
+type AppMode = 'study' | 'learn' | 'analytics';
 
 export const App: React.FC = () => {
   const [sets, setSets] = useState<FlashcardSet[]>([]);
@@ -143,6 +144,15 @@ export const App: React.FC = () => {
           >
             Cards
           </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'analytics'}
+            className={`mode-tab ${mode === 'analytics' ? 'active' : ''}`}
+            onClick={() => setMode('analytics')}
+          >
+            Analytics
+          </button>
         </div>
       </header>
 
@@ -171,7 +181,18 @@ export const App: React.FC = () => {
             <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
           </div>
 
-          {mode === 'study' ? (
+          {mode === 'analytics' ? (
+            <AnalyticsView
+              stats={{
+                mastered: 0,
+                proficient: 0,
+                familiar: 0,
+                unseen: deck.length,
+              }}
+              totalSessions={score.total > 0 ? 1 : 0}
+              streakDays={1}
+            />
+          ) : mode === 'study' ? (
             <div className="flashcard-wrapper">
               <div
                 className="flashcard"

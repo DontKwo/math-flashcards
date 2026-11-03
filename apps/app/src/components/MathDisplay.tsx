@@ -7,7 +7,7 @@ export interface MathDisplayProps {
   className?: string;
 }
 
-export const MathDisplay: React.FC<MathDisplayProps> = ({
+export const MathDisplay: React.FunctionComponent<MathDisplayProps> = ({
   latex,
   display = true,
   className = '',

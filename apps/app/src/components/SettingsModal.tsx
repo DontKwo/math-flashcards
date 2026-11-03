@@ -34,7 +34,7 @@ export interface SettingsModalProps {
   onClose: () => void;
 }
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, onSave, onClose }) => {
+export const SettingsModal: React.FunctionComponent<SettingsModalProps> = ({ currentSettings, onSave, onClose }) => {
   const [settings, setSettings] = useState<AppSettings>(currentSettings);
 
   const handleToggle = (key: keyof AppSettings): void => {

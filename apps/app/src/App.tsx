@@ -11,7 +11,7 @@ import type { FlashcardItem } from './data/sample-deck.ts';
 
 type AppMode = 'study' | 'learn';
 
-export const App: React.FC = () => {
+export const App: React.FunctionComponent = () => {
   const [sets, setSets] = useState<FlashcardSet[]>([]);
   const [activeSetId, setActiveSetId] = useState<string>('sample-deck');
   const [currentIndex, setCurrentIndex] = useState(0);

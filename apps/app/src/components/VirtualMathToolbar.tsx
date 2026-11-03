@@ -28,7 +28,7 @@ const SYMBOLS: MathSymbolButton[] = [
   { label: '≥', snippet: '\\geq ', title: 'Greater or Equal' },
 ];
 
-export const VirtualMathToolbar: React.FC<VirtualMathToolbarProps> = ({ onInsert }) => {
+export const VirtualMathToolbar: React.FunctionComponent<VirtualMathToolbarProps> = ({ onInsert }) => {
   return (
     <div className="math-toolbar" role="toolbar" aria-label="Math Symbols">
       {SYMBOLS.map((s) => (

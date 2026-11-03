@@ -7,7 +7,7 @@ export interface CardCreatorModalProps {
   onClose: () => void;
 }
 
-export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({ onSave, onClose }) => {
+export const CardCreatorModal: React.FunctionComponent<CardCreatorModalProps> = ({ onSave, onClose }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [prompt, setPrompt] = useState('');

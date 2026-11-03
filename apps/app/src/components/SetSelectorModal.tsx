@@ -9,7 +9,7 @@ export interface SetSelectorModalProps {
   onClose: () => void;
 }
 
-export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
+export const SetSelectorModal: React.FunctionComponent<SetSelectorModalProps> = ({
   sets,
   activeSetId,
   onSelectSet,

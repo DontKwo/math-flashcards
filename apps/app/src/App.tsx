@@ -1,11 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { registry, type Verdict } from '@formulaflash/core';
 import { MathDisplay } from './components/MathDisplay.tsx';
-import { VirtualMathToolbar } from './components/VirtualMathToolbar.tsx';
-import { MathLiveField } from './components/MathLiveField.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
 import { SettingsModal, loadSettings, type AppSettings } from './components/SettingsModal.tsx';
+import { LearnRunner } from './components/LearnRunner.tsx';
 import { loadSets, saveSet, saveCard, type FlashcardSet } from './data/storage.ts';
 import type { FlashcardItem } from './data/sample-deck.ts';
 
@@ -17,10 +15,6 @@ export const App: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<AppMode>('learn');
   const [isFlipped, setIsFlipped] = useState(false);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [verdict, setVerdict] = useState<Verdict | null>(null);
-  const [showHint, setShowHint] = useState(false);
-  const [score, setScore] = useState({ correct: 0, total: 0 });
 
   const [settings, setSettings] = useState<AppSettings>(loadSettings());
 
@@ -40,50 +34,14 @@ export const App: React.FC = () => {
   const handleNext = useCallback((): void => {
     if (deck.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % deck.length);
-    setUserAnswer('');
-    setVerdict(null);
-    setShowHint(false);
     setIsFlipped(false);
   }, [deck.length]);
 
   const handlePrev = useCallback((): void => {
     if (deck.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + deck.length) % deck.length);
-    setUserAnswer('');
-    setVerdict(null);
-    setShowHint(false);
     setIsFlipped(false);
   }, [deck.length]);
-
-  const handleInsertSnippet = useCallback((snippet: string): void => {
-    setUserAnswer((prev) => prev + snippet);
-  }, []);
-
-  const handleCheckAnswer = useCallback((): void => {
-    if (!userAnswer.trim() || !currentCard) return;
-
-    const checker = registry.getChecker('math');
-    if (!checker) return;
-
-    const result = checker.check(userAnswer.trim(), currentCard.latexAnswer, {
-      accentsMatter: settings.accentsMatter,
-      greekVariantsEqual: settings.greekVariantsEqual,
-      allowSideSwap: settings.allowSideSwap,
-    });
-    setVerdict(result);
-    setScore((prev) => ({
-      correct: prev.correct + (result.correct ? 1 : 0),
-      total: prev.total + 1,
-    }));
-  }, [userAnswer, currentCard, settings]);
-
-  const handleShowAnswer = useCallback((): void => {
-    setVerdict({
-      correct: false,
-      via: 'normalized',
-      message: 'Revealed answer',
-    });
-  }, []);
 
   const handleCreateSet = (name: string, category: string): void => {
     const newSet: FlashcardSet = {
@@ -171,7 +129,7 @@ export const App: React.FC = () => {
             <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
           </div>
 
-          {mode === 'study' ? (
+          {mode === 'study' || !activeSet ? (
             <div className="flashcard-wrapper">
               <div
                 className="flashcard"
@@ -229,134 +187,7 @@ export const App: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="learn-panel">
-              <div className="flashcard" style={{ minHeight: 'auto' }}>
-                <div className="card-body" style={{ alignItems: 'flex-start', textAlign: 'left' }}>
-                  <h2 className="card-title">{currentCard.title}</h2>
-                  <p className="card-prompt">{currentCard.prompt}</p>
-                </div>
-              </div>
-
-              {showHint && currentCard.hint && (
-                <div className="hint-box">
-                  <strong>Hint: </strong>
-                  {currentCard.hint}
-                </div>
-              )}
-
-              <div className="input-container">
-                <label htmlFor="math-answer-input" className="input-label">
-                  Type Equation (LaTeX / ASCII)
-                </label>
-                <MathLiveField
-                  value={userAnswer}
-                  onChange={setUserAnswer}
-                  placeholder="e.g. PV = nRT"
-                  className="math-input"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleCheckAnswer();
-                    }
-                  }}
-                />
-
-                <VirtualMathToolbar onInsert={handleInsertSnippet} />
-
-                <div className="preview-card">
-                  {userAnswer.trim() ? (
-                    <MathDisplay latex={userAnswer} display={false} />
-                  ) : (
-                    <span className="preview-placeholder">Live equation preview appears here</span>
-                  )}
-                </div>
-              </div>
-
-              {verdict ? (
-                <div className={`verdict-card ${verdict.correct ? 'correct' : 'incorrect'}`}>
-                  <div className="verdict-header">
-                    {verdict.correct ? 'Correct' : 'Not quite right'}
-                  </div>
-                  <div className="verdict-detail">
-                    {verdict.correct ? (
-                      <span>
-                        Verified via <strong>{verdict.via}</strong> equivalence
-                        {verdict.via === 'structural' && ' (algebraic AST match)'}.
-                      </span>
-                    ) : (
-                      <div className="verdict-compare">
-                        <div>
-                          <span>Expected: </span>
-                          <MathDisplay latex={currentCard.latexAnswer} display={false} />
-                        </div>
-                        {userAnswer && (
-                          <div>
-                            <span>You entered: </span>
-                            <MathDisplay latex={userAnswer} display={false} />
-                          </div>
-                        )}
-                        {currentCard.explanation && (
-                          <div className="card-explanation" style={{ marginTop: '8px' }}>
-                            {currentCard.explanation}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    style={{ marginTop: '8px' }}
-                    onClick={handleNext}
-                  >
-                    {verdict.correct ? 'Next Card' : 'Continue'}
-                  </button>
-                </div>
-              ) : (
-                <div className="nav-controls">
-                  {currentCard.hint && (
-                    <button
-                      type="button"
-                      className="btn-secondary"
-                      onClick={() => setShowHint(!showHint)}
-                    >
-                      {showHint ? 'Hide Hint' : 'Hint'}
-                    </button>
-                  )}
-                  <button type="button" className="btn-secondary" onClick={handleShowAnswer}>
-                    Reveal
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    disabled={!userAnswer.trim()}
-                    onClick={handleCheckAnswer}
-                  >
-                    Check Answer
-                  </button>
-                </div>
-              )}
-
-              <div className="nav-controls" style={{ marginTop: '8px' }}>
-                <button type="button" className="btn-secondary" onClick={handlePrev}>
-                  Previous
-                </button>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flex: 1,
-                    fontSize: '13px',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  Session: {score.correct} / {score.total} correct
-                </div>
-                <button type="button" className="btn-secondary" onClick={handleNext}>
-                  Next
-                </button>
-              </div>
-            </div>
+            activeSet && <LearnRunner set={activeSet} onFinish={() => setMode('study')} />
           )}
         </>
       )}

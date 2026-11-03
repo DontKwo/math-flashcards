@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme, type Theme } from '../context/ThemeContext.tsx';
 
 export interface AppSettings {
   accentsMatter: boolean;
@@ -36,6 +37,7 @@ export interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, onSave, onClose }) => {
   const [settings, setSettings] = useState<AppSettings>(currentSettings);
+  const { theme, setTheme } = useTheme();
 
   const handleToggle = (key: keyof AppSettings): void => {
     setSettings((prev) => ({
@@ -56,6 +58,21 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
         <h2 className="modal-title">Settings</h2>
 
         <div className="settings-list">
+          <div className="settings-item">
+            <label htmlFor="theme-select">Theme</label>
+            <select
+              id="theme-select"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value as Theme)}
+              style={{ padding: '4px', borderRadius: '4px', border: '1px solid var(--border)', background: 'var(--bg-card)', color: 'var(--text-primary)' }}
+            >
+              <option value="system">System</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+              <option value="oled">OLED Black</option>
+            </select>
+          </div>
+
           <div className="settings-item">
             <label htmlFor="accents-matter">Accents Matter</label>
             <input

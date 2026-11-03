@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@cortex-js/compute-engine':
+        specifier: ^0.175.0
+        version: 0.175.0
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.72.1

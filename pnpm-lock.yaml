@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      ts-fsrs:
+        specifier: ^5.4.2
+        version: 5.4.2
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.72.1
@@ -93,6 +97,9 @@ importers:
       '@cortex-js/compute-engine':
         specifier: ^0.175.0
         version: 0.175.0
+      ts-fsrs:
+        specifier: ^5.4.2
+        version: 5.4.2
       zod:
         specifier: ^3.22.0
         version: 3.25.76
@@ -1998,6 +2005,10 @@ packages:
     engines: {node: '>=18.12'}
     peerDependencies:
       typescript: '>=4.8.4'
+
+  ts-fsrs@5.4.2:
+    resolution: {integrity: sha512-z4qop4pzTcyTzuJ566d9EaX/4bZZzhYfeaPImfVr+xcYT65c5oBgFDijUhCE/D+C78eaolHIhKRZ04/RwF+v2g==}
+    engines: {node: '>=20.0.0'}
 
   tsconfig-paths-webpack-plugin@4.2.0:
     resolution: {integrity: sha512-zbem3rfRS8BgeNK50Zz5SIQgXzLafiHjOwUAvk/38/o1jHn/V5QAgVUcz884or7WYcPaH3N2CIfUc2u0ul7UcA==}
@@ -3912,6 +3923,8 @@ snapshots:
   ts-api-utils@2.5.0(typescript@5.9.3):
     dependencies:
       typescript: 5.9.3
+
+  ts-fsrs@5.4.2: {}
 
   tsconfig-paths-webpack-plugin@4.2.0:
     dependencies:

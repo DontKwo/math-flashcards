@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@cortex-js/compute-engine": "^0.175.0",
+    "ts-fsrs": "^5.4.2",
     "zod": "^3.22.0"
   },
   "devDependencies": {

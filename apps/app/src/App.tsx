@@ -3,6 +3,7 @@ import { registry, type Verdict } from '@formulaflash/core';
 import { MathDisplay } from './components/MathDisplay.tsx';
 import { VirtualMathToolbar } from './components/VirtualMathToolbar.tsx';
 import { MathLiveField } from './components/MathLiveField.tsx';
+import { FlashcardViewer } from './components/FlashcardViewer.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
 import { SettingsModal, loadSettings, type AppSettings } from './components/SettingsModal.tsx';
@@ -173,45 +174,11 @@ export const App: React.FC = () => {
 
           {mode === 'study' ? (
             <div className="flashcard-wrapper">
-              <div
-                className="flashcard"
-                onClick={() => setIsFlipped(!isFlipped)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    setIsFlipped(!isFlipped);
-                  }
-                }}
-              >
-                {!isFlipped ? (
-                  <div className="card-body">
-                    <h2 className="card-title">{currentCard.title}</h2>
-                    <p className="card-prompt">{currentCard.prompt}</p>
-                    <div style={{ marginTop: '20px' }}>
-                      <span className="card-flip-prompt">Tap card to flip for equation</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="card-body">
-                    <span className="deck-tag" style={{ marginBottom: '8px' }}>
-                      Target Equation
-                    </span>
-                    <div className="card-math-hero">
-                      <MathDisplay latex={currentCard.latexAnswer} display={true} />
-                    </div>
-                    {currentCard.explanation && (
-                      <div className="card-explanation">
-                        <strong>Explanation: </strong>
-                        {currentCard.explanation}
-                      </div>
-                    )}
-                    <div style={{ marginTop: '16px' }}>
-                      <span className="card-flip-prompt">Tap to flip back</span>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <FlashcardViewer
+                card={currentCard}
+                isFlipped={isFlipped}
+                onFlip={() => setIsFlipped(!isFlipped)}
+              />
               <div className="nav-controls" style={{ marginTop: '16px' }}>
                 <button type="button" className="btn-secondary" onClick={handlePrev}>
                   Previous

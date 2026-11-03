@@ -2,17 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import type { MathfieldElement } from 'mathlive';
 import 'mathlive';
 
-declare module 'react' {
+declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace React {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace JSX {
-      interface IntrinsicElements {
-        'math-field': React.DetailedHTMLProps<React.HTMLAttributes<MathfieldElement>, MathfieldElement> & {
-          class?: string;
-          readonly?: boolean;
-        };
-      }
+  namespace JSX {
+    interface IntrinsicElements {
+      'math-field': React.DetailedHTMLProps<React.HTMLAttributes<MathfieldElement>, MathfieldElement> & {
+        class?: string;
+        readonly?: boolean;
+      };
     }
   }
 }

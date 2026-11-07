@@ -24,7 +24,7 @@ test.describe('Responsive Visual Verification', () => {
 
       // Home screenshot
       await page.screenshot({
-        path: `docs/ai-notes/ai/foundation/screenshots/home-${vp.name}.png`,
+        path: `docs/ai-notes/ai/study/screenshots/home-${vp.name}.png`,
         fullPage: true,
       });
 
@@ -34,17 +34,47 @@ test.describe('Responsive Visual Verification', () => {
 
       // Set page screenshot
       await page.screenshot({
-        path: `docs/ai-notes/ai/foundation/screenshots/set-${vp.name}.png`,
+        path: `docs/ai-notes/ai/study/screenshots/set-${vp.name}.png`,
         fullPage: true,
       });
 
-      // Navigate to Study Mode
+      // Navigate to Flashcards Mode
       await page.click('[data-testid="set-study-cards-btn"]');
       await expect(page.locator('[data-testid="study-flip-card"]')).toBeVisible();
 
-      // Study screenshot
+      // Flashcards screenshot
       await page.screenshot({
-        path: `docs/ai-notes/ai/foundation/screenshots/study-${vp.name}.png`,
+        path: `docs/ai-notes/ai/study/screenshots/cards-${vp.name}.png`,
+        fullPage: true,
+      });
+
+      // Exit back to Set
+      await page.click('[data-testid="study-exit-btn"]');
+      await expect(page).toHaveURL(/#\/set\//);
+
+      // Navigate to Learn Mode
+      await page.click('[data-testid="set-study-learn-btn"]');
+      await expect(page.locator('[data-testid="study-learn-panel"]')).toBeVisible();
+
+      // Learn mode screenshot
+      await page.screenshot({
+        path: `docs/ai-notes/ai/study/screenshots/learn-${vp.name}.png`,
+        fullPage: true,
+      });
+
+      // Navigate to Stats
+      await page.goto('/#/stats');
+      await expect(page.locator('text=Study Stats & Mastery')).toBeVisible();
+      await page.screenshot({
+        path: `docs/ai-notes/ai/study/screenshots/stats-${vp.name}.png`,
+        fullPage: true,
+      });
+
+      // Navigate to Settings
+      await page.goto('/#/settings');
+      await expect(page.locator('text=Math Answer Checker')).toBeVisible();
+      await page.screenshot({
+        path: `docs/ai-notes/ai/study/screenshots/settings-${vp.name}.png`,
         fullPage: true,
       });
     });

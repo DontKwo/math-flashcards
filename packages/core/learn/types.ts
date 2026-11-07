@@ -1,4 +1,4 @@
-import { type Card, type CardProgress } from '../model/index.js';
+import type { Card, CardProgress, RichContent } from '../model/index.js';
 
 export type MasteryLevel = 0 | 1 | 2 | 3;
 
@@ -10,15 +10,28 @@ export const MasteryLevels = {
 } as const;
 
 export type QuestionType = 'mc' | 'write';
+export type StudyDirection = 'front->back' | 'back->front' | 'both';
 
 export interface QuestionPrompt {
   card: Card;
   progress: CardProgress;
   type: QuestionType;
-  options?: string[]; // For MC
+  direction: 'front->back' | 'back->front';
+  promptContent: RichContent;
+  expectedLatexOrText: string;
+  options?: string[]; // For MC options
 }
 
-export interface LearnState {
-  queue: QuestionPrompt[];
-  activeRounds: number;
+export interface RoundSummary {
+  roundIndex: number;
+  totalAnswered: number;
+  correctCount: number;
+  missedCount: number;
+  promotedCount: number;
+}
+
+export interface LearnEngineConfig {
+  direction?: StudyDirection;
+  roundSize?: number;
+  retypeAfterMiss?: boolean;
 }

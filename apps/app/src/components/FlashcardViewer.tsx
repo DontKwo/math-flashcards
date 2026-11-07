@@ -20,7 +20,7 @@ export const FlashcardViewer: React.FC<FlashcardViewerProps> = ({ card, isFlippe
           position: 'relative',
           width: '100%',
           minHeight: '280px',
-          transition: 'transform 0.6s',
+          transition: 'transform 0.5s ease',
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
           cursor: 'pointer',
@@ -28,8 +28,10 @@ export const FlashcardViewer: React.FC<FlashcardViewerProps> = ({ card, isFlippe
         onClick={onFlip}
         role="button"
         tabIndex={0}
+        aria-label={isFlipped ? 'Card back showing equation. Tap to flip to question.' : 'Card front showing question. Tap to flip for equation.'}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
             onFlip();
           }
         }}
@@ -37,11 +39,13 @@ export const FlashcardViewer: React.FC<FlashcardViewerProps> = ({ card, isFlippe
         {/* Front of Card */}
         <div
           className="flashcard-face flashcard-front flashcard"
+          aria-hidden={isFlipped}
           style={{
-            position: 'absolute',
+            position: isFlipped ? 'absolute' : 'relative',
             width: '100%',
             height: '100%',
             backfaceVisibility: 'hidden',
+            visibility: isFlipped ? 'hidden' : 'visible',
           }}
         >
           <div className="card-body">
@@ -56,12 +60,16 @@ export const FlashcardViewer: React.FC<FlashcardViewerProps> = ({ card, isFlippe
         {/* Back of Card */}
         <div
           className="flashcard-face flashcard-back flashcard"
+          aria-hidden={!isFlipped}
           style={{
-            position: 'absolute',
+            position: isFlipped ? 'relative' : 'absolute',
+            top: 0,
+            left: 0,
             width: '100%',
             height: '100%',
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
+            visibility: isFlipped ? 'visible' : 'hidden',
           }}
         >
           <div className="card-body">

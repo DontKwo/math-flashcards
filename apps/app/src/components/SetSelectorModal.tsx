@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { FlashcardSet } from '../data/storage.ts';
 
 export interface SetSelectorModalProps {
@@ -20,6 +20,16 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
   const [newName, setNewName] = useState('');
   const [newCategory, setNewCategory] = useState('');
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   const handleCreate = (): void => {
     if (!newName.trim()) return;
     onCreateSet(newName.trim(), newCategory.trim() || 'General');
@@ -29,13 +39,33 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
   };
 
   return (
-    <div className="modal-overlay">
+    <div
+      className="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="set-selector-dialog-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="modal-content">
-        <h2 className="modal-title">Select Deck</h2>
+        <div className="modal-header">
+          <h2 id="set-selector-dialog-title" className="modal-title">
+            {isCreating ? 'Create New Deck' : 'Select Deck'}
+          </h2>
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
+            ×
+          </button>
+        </div>
 
         {!isCreating ? (
           <>
-            <div className="set-list">
+            <div className="set-list" role="listbox" aria-label="Deck List">
               {sets.map((set) => (
                 <div
                   key={set.id}
@@ -44,10 +74,11 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
                     onSelectSet(set.id);
                     onClose();
                   }}
-                  role="button"
+                  role="option"
+                  aria-selected={set.id === activeSetId}
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       onSelectSet(set.id);
                       onClose();
                     }
@@ -65,14 +96,14 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
             </div>
             <div className="modal-actions" style={{ justifyContent: 'space-between' }}>
               <button type="button" className="btn-secondary" onClick={onClose}>
-                Cancel
+                Close
               </button>
               <button
                 type="button"
                 className="btn-primary"
                 onClick={() => setIsCreating(true)}
               >
-                Create New Deck
+                + New Deck
               </button>
             </div>
           </>
@@ -86,9 +117,10 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Physics 101"
+                autoFocus
               />
             </div>
-            <div className="input-group">
+            <div className="input-group" style={{ marginTop: '12px' }}>
               <label htmlFor="set-category">Category (Optional)</label>
               <input
                 id="set-category"
@@ -98,7 +130,7 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
                 placeholder="e.g. Science"
               />
             </div>
-            <div className="modal-actions" style={{ marginTop: '16px' }}>
+            <div className="modal-actions" style={{ marginTop: '20px' }}>
               <button type="button" className="btn-secondary" onClick={() => setIsCreating(false)}>
                 Back
               </button>

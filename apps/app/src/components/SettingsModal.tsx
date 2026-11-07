@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export interface AppSettings {
   accentsMatter: boolean;
   greekVariantsEqual: boolean;
   allowSideSwap: boolean;
+  theme: 'dark' | 'light' | 'system';
 }
 
-const DEFAULT_SETTINGS: AppSettings = {
+export const DEFAULT_SETTINGS: AppSettings = {
   accentsMatter: true,
   greekVariantsEqual: true,
   allowSideSwap: true,
+  theme: 'dark',
 };
 
+const STORAGE_KEY = 'formulaflash_settings';
+
 export const loadSettings = (): AppSettings => {
-  const data = localStorage.getItem('formulaflash_settings');
+  const data = localStorage.getItem(STORAGE_KEY);
   if (data) {
     try {
       return { ...DEFAULT_SETTINGS, ...JSON.parse(data) };
@@ -25,7 +29,17 @@ export const loadSettings = (): AppSettings => {
 };
 
 export const saveSettings = (settings: AppSettings): void => {
-  localStorage.setItem('formulaflash_settings', JSON.stringify(settings));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+};
+
+export const applyTheme = (theme: AppSettings['theme']): void => {
+  const root = document.documentElement;
+  if (theme === 'system') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  } else {
+    root.setAttribute('data-theme', theme);
+  }
 };
 
 export interface SettingsModalProps {
@@ -36,63 +50,219 @@ export interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, onSave, onClose }) => {
   const [settings, setSettings] = useState<AppSettings>(currentSettings);
+  const [showConfirmReset, setShowConfirmReset] = useState(false);
 
-  const handleToggle = (key: keyof AppSettings): void => {
-    setSettings((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  const handleToggle = (key: keyof Omit<AppSettings, 'theme'>): void => {
+    const nextSettings: AppSettings = {
+      ...settings,
+      [key]: !settings[key],
+    };
+    setSettings(nextSettings);
+    saveSettings(nextSettings);
+    onSave(nextSettings);
   };
 
-  const handleSave = (): void => {
-    saveSettings(settings);
-    onSave(settings);
-    onClose();
+  const handleThemeChange = (newTheme: AppSettings['theme']): void => {
+    const nextSettings: AppSettings = {
+      ...settings,
+      theme: newTheme,
+    };
+    setSettings(nextSettings);
+    saveSettings(nextSettings);
+    applyTheme(newTheme);
+    onSave(nextSettings);
+  };
+
+  const handleResetToDefaults = (): void => {
+    setSettings(DEFAULT_SETTINGS);
+    saveSettings(DEFAULT_SETTINGS);
+    applyTheme(DEFAULT_SETTINGS.theme);
+    onSave(DEFAULT_SETTINGS);
+    setShowConfirmReset(false);
   };
 
   return (
-    <div className="modal-overlay">
+    <div
+      className="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settings-dialog-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="modal-content">
-        <h2 className="modal-title">Settings</h2>
+        <div className="modal-header">
+          <h2 id="settings-dialog-title" className="modal-title">
+            Settings
+          </h2>
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close Settings dialog"
+          >
+            ×
+          </button>
+        </div>
 
-        <div className="settings-list">
-          <div className="settings-item">
-            <label htmlFor="accents-matter">Accents Matter</label>
-            <input
-              id="accents-matter"
-              type="checkbox"
-              checked={settings.accentsMatter}
-              onChange={() => handleToggle('accentsMatter')}
-            />
-          </div>
+        <div className="settings-section">
+          <span className="settings-section-title">Math & Answer Checking</span>
+          <div className="settings-group">
+            <div className="settings-row">
+              <div className="settings-label-group">
+                <label htmlFor="accents-matter" className="settings-label">
+                  Accents & Decorations Matter
+                </label>
+                <span className="settings-desc">
+                  Distinguish accented symbols (e.g. \hat&#123;R&#125; vs R). When enabled, rho-hat ≠ rho.
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  id="accents-matter"
+                  type="checkbox"
+                  checked={settings.accentsMatter}
+                  onChange={() => handleToggle('accentsMatter')}
+                />
+                <span className="switch-slider" />
+              </label>
+            </div>
 
-          <div className="settings-item">
-            <label htmlFor="greek-variants">Greek Variants Equal</label>
-            <input
-              id="greek-variants"
-              type="checkbox"
-              checked={settings.greekVariantsEqual}
-              onChange={() => handleToggle('greekVariantsEqual')}
-            />
-          </div>
+            <div className="settings-row">
+              <div className="settings-label-group">
+                <label htmlFor="greek-variants" className="settings-label">
+                  Greek Variants Equal
+                </label>
+                <span className="settings-desc">
+                  Treat equivalent glyph variants as identical (e.g. \epsilon = \varepsilon, \phi = \varphi).
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  id="greek-variants"
+                  type="checkbox"
+                  checked={settings.greekVariantsEqual}
+                  onChange={() => handleToggle('greekVariantsEqual')}
+                />
+                <span className="switch-slider" />
+              </label>
+            </div>
 
-          <div className="settings-item">
-            <label htmlFor="side-swap">Allow Equation Side-Swap</label>
-            <input
-              id="side-swap"
-              type="checkbox"
-              checked={settings.allowSideSwap}
-              onChange={() => handleToggle('allowSideSwap')}
-            />
+            <div className="settings-row">
+              <div className="settings-label-group">
+                <label htmlFor="side-swap" className="settings-label">
+                  Allow Equation Side-Swap
+                </label>
+                <span className="settings-desc">
+                  Accept equations with swapped sides (e.g. accept nRT = PV for PV = nRT).
+                </span>
+              </div>
+              <label className="switch">
+                <input
+                  id="side-swap"
+                  type="checkbox"
+                  checked={settings.allowSideSwap}
+                  onChange={() => handleToggle('allowSideSwap')}
+                />
+                <span className="switch-slider" />
+              </label>
+            </div>
           </div>
         </div>
 
-        <div className="modal-actions" style={{ marginTop: '24px' }}>
-          <button type="button" className="btn-secondary" onClick={onClose}>
-            Cancel
-          </button>
-          <button type="button" className="btn-primary" onClick={handleSave}>
-            Save Settings
+        <div className="settings-section">
+          <span className="settings-section-title">Appearance & Theme</span>
+          <div className="settings-group">
+            <div className="settings-row">
+              <div className="settings-label-group">
+                <span className="settings-label">Theme Mode</span>
+                <span className="settings-desc">Choose between dark slate, light, or follow system theme.</span>
+              </div>
+              <div className="segmented-control" role="group" aria-label="Theme Mode Selection">
+                <button
+                  type="button"
+                  className={`segmented-btn ${settings.theme === 'dark' ? 'active' : ''}`}
+                  onClick={() => handleThemeChange('dark')}
+                  aria-pressed={settings.theme === 'dark'}
+                >
+                  Dark
+                </button>
+                <button
+                  type="button"
+                  className={`segmented-btn ${settings.theme === 'light' ? 'active' : ''}`}
+                  onClick={() => handleThemeChange('light')}
+                  aria-pressed={settings.theme === 'light'}
+                >
+                  Light
+                </button>
+                <button
+                  type="button"
+                  className={`segmented-btn ${settings.theme === 'system' ? 'active' : ''}`}
+                  onClick={() => handleThemeChange('system')}
+                  aria-pressed={settings.theme === 'system'}
+                >
+                  System
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="settings-section">
+          <span className="settings-section-title">Maintenance</span>
+          <div className="settings-group">
+            <div className="settings-row">
+              <div className="settings-label-group">
+                <span className="settings-label">Reset to Defaults</span>
+                <span className="settings-desc">Restore checking parameters and theme to original factory values.</span>
+              </div>
+              {!showConfirmReset ? (
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  style={{ minWidth: '100px', flex: 'none', height: '40px', minHeight: '40px' }}
+                  onClick={() => setShowConfirmReset(true)}
+                >
+                  Reset...
+                </button>
+              ) : (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    style={{ minWidth: '90px', flex: 'none', height: '40px', minHeight: '40px' }}
+                    onClick={handleResetToDefaults}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    style={{ minWidth: '70px', flex: 'none', height: '40px', minHeight: '40px' }}
+                    onClick={() => setShowConfirmReset(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="modal-actions">
+          <button type="button" className="btn-primary" onClick={onClose}>
+            Done
           </button>
         </div>
       </div>

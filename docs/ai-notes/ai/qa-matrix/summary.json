@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-07T02:21:43.322Z",
+  "seed": 4242,
+  "durationSeconds": "9.90",
+  "totalCases": 15,
+  "passedCases": 14,
+  "failedCases": 1,
+  "flakyCases": 0,
+  "rootCauses": {
+    "Interactive control is missing data-testid": 4,
+    "Seeded walk invariant failure": 1
+  }
+}

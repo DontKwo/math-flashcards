@@ -10,9 +10,11 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "typecheck": "pnpm -r exec tsc --noEmit"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",
     "dependency-cruiser": "^16.0.0",

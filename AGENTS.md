@@ -9,3 +9,5 @@
 - Pinned versions of mathlive / @cortex-js/compute-engine / katex: upgrade only with the full corpus + e2e passing.
 - When unsure: choose the more configurable/extensible option, record a short ADR in docs/adr/.
 - Commands: pnpm dev | test | test:e2e | lint | typecheck | android:apk | desktop:dev
+- Testing: unit & stores with `pnpm test`, end-to-end with `pnpm test:e2e` (Playwright across responsive viewports).
+- Architectural guards: static guard tests in `apps/app/src/testing/static-guards.test.ts` enforce 0 raw inline styles, 0 raw hex colors outside tokens.css, and strict `data-testid="<screen>-<element>"` naming.

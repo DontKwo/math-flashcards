@@ -26,6 +26,9 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm exec depcruise packages apps
       - run: pnpm run test
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm run test:e2e
 
   android-debug-apk:
     runs-on: ubuntu-latest

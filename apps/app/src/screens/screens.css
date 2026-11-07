@@ -1,6 +1,18 @@
 /* Formula Flash Screen Styles */
 @import '../ui/tokens.css';
 
+.hidden {
+  display: none !important;
+}
+
+.rotate-up {
+  transform: rotate(180deg);
+}
+
+.rotate-down {
+  transform: rotate(0deg);
+}
+
 /* Common Layout Helpers */
 .screen-container {
   display: flex;

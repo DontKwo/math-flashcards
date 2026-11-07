@@ -45,7 +45,7 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm --filter app run build
       - run: cd apps/app && npx cap sync android
-      - run: cd apps/app/android && ./gradlew assembleDebug
+      - run: cd apps/app/android && chmod +x ./gradlew && ./gradlew assembleDebug
       - name: Stage APK for release
         run: cp apps/app/android/app/build/outputs/apk/debug/app-debug.apk formulaflash-debug.apk
       - uses: actions/upload-artifact@v4

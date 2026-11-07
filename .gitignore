@@ -5,3 +5,4 @@ build/
 *.log
 *.tsbuildinfo
 .orchestrator_state.json
+test-results/

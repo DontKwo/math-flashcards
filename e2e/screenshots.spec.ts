@@ -10,7 +10,12 @@ const VIEWPORTS = [
 
 test.describe('Responsive Visual Verification', () => {
   for (const vp of VIEWPORTS) {
-    test(`capture screenshots at ${vp.name}`, async ({ page }) => {
+    test(`capture screenshots at ${vp.name}`, async ({ page }, testInfo) => {
+      // Only capture from the project matching the viewport name to prevent file write collisions
+      if (!testInfo.project.name.includes(vp.name)) {
+        test.skip();
+      }
+
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto('/#/');
 

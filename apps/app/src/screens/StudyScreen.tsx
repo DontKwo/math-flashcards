@@ -221,16 +221,16 @@ export const StudyScreen: React.FC = () => {
                 <span className="home-card-title">
                   {verdict.correct ? 'Correct' : 'Not quite right'}
                 </span>
-                <p className="set-mode-desc">
+                <div className="set-mode-desc">
                   {verdict.correct ? (
-                    `Verified via ${verdict.via} equivalence`
+                    <span>{`Verified via ${verdict.via} equivalence`}</span>
                   ) : (
                     <div>
                       <span>Expected: </span>
                       <MathDisplay latex={backLatex} display={false} />
                     </div>
                   )}
-                </p>
+                </div>
                 <Button variant="primary" onClick={handleNext}>
                   {verdict.correct ? 'Next Card' : 'Continue'}
                 </Button>

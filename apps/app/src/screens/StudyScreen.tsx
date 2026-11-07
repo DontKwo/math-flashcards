@@ -706,18 +706,22 @@ export const StudyScreen: React.FC = () => {
             {/* Retype correct answer gate */}
             {isRetypePhase && !verdict.correct ? (
               <div className="editor-form">
-                <label className="ui-field-label">Retype the correct answer to continue:</label>
-                <MathLiveField
-                  value={retypeValue}
-                  onChange={setRetypeValue}
-                  placeholder="Type the correct formula..."
-                  className="math-input"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && retypeValue.trim()) {
-                      handleContinueNext();
-                    }
-                  }}
-                />
+                <span className="home-card-title">
+                  {verdict.correct ? 'Correct' : 'Not quite right'}
+                </span>
+                <div className="set-mode-desc">
+                  {verdict.correct ? (
+                    <span>{`Verified via ${verdict.via} equivalence`}</span>
+                  ) : (
+                    <div>
+                      <span>Expected: </span>
+                      <MathDisplay latex={backLatex} display={false} />
+                    </div>
+                  )}
+                </div>
+                <Button variant="primary" onClick={handleNext}>
+                  {verdict.correct ? 'Next Card' : 'Continue'}
+                </Button>
               </div>
             ) : null}
 

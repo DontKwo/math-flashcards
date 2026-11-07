@@ -1,0 +1,898 @@
+{
+  "timestamp": "2026-11-07T01:55:40.186Z",
+  "routes": [
+    "#/",
+    "#/set/sample-deck",
+    "#/set/sample-deck/edit",
+    "#/create",
+    "#/study/sample-deck/learn",
+    "#/study/sample-deck/cards",
+    "#/stats",
+    "#/settings"
+  ],
+  "controls": [
+    {
+      "route": "#/",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "home-search-input",
+      "role": "input",
+      "accessibleName": "Search sets by title or tag...",
+      "tag": "input",
+      "selector": "[data-testid=\"home-search-input\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 307,
+        "y": 78,
+        "width": 436,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/",
+      "testId": "home-create-set",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "selector": "[data-testid=\"home-create-set\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1121,
+        "y": 78,
+        "width": 143,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "set-back-btn",
+      "role": "button",
+      "accessibleName": "Back",
+      "tag": "button",
+      "selector": "[data-testid=\"set-back-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 276,
+        "y": 77,
+        "width": 82,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "set-edit-btn",
+      "role": "button",
+      "accessibleName": "Edit Set",
+      "tag": "button",
+      "selector": "[data-testid=\"set-edit-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1092,
+        "y": 77,
+        "width": 120,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "role": "button",
+      "accessibleName": "Options",
+      "tag": "button",
+      "selector": "button[aria-label=\"Options\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1220,
+        "y": 77,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck",
+      "testId": "set-add-cards-btn",
+      "role": "button",
+      "accessibleName": "Add / Edit Cards",
+      "tag": "button",
+      "selector": "[data-testid=\"set-add-cards-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1105,
+        "y": 291,
+        "width": 159,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/create",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "editor-back-btn",
+      "role": "button",
+      "accessibleName": "Cancel",
+      "tag": "button",
+      "selector": "[data-testid=\"editor-back-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 276,
+        "y": 77,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "editor-save-btn",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "selector": "[data-testid=\"editor-save-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1147,
+        "y": 77,
+        "width": 117,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "editor-title-input",
+      "role": "input",
+      "accessibleName": "e.g. Organic Chemistry Reactions",
+      "tag": "input",
+      "selector": "[data-testid=\"editor-title-input\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 306,
+        "y": 181,
+        "width": 928,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/create",
+      "testId": "editor-tags-input",
+      "role": "input",
+      "accessibleName": "e.g. Chemistry, Reactions, STEM",
+      "tag": "input",
+      "selector": "[data-testid=\"editor-tags-input\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 306,
+        "y": 261,
+        "width": 928,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/study/sample-deck/learn",
+      "testId": "study-exit-btn",
+      "role": "button",
+      "accessibleName": "Exit",
+      "tag": "button",
+      "selector": "[data-testid=\"study-exit-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 16,
+        "width": 78,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/study/sample-deck/cards",
+      "testId": "study-exit-btn",
+      "role": "button",
+      "accessibleName": "Exit",
+      "tag": "button",
+      "selector": "[data-testid=\"study-exit-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 16,
+        "width": 78,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/stats",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/stats",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "nav-sidebar-brand",
+      "role": "button",
+      "accessibleName": "Formula Flash",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-brand\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 30,
+        "width": 155,
+        "height": 24
+      }
+    },
+    {
+      "route": "#/settings",
+      "role": "button",
+      "accessibleName": "Collapse sidebar",
+      "tag": "button",
+      "type": "button",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 207,
+        "y": 24,
+        "width": 36,
+        "height": 36
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "nav-sidebar-home",
+      "role": "button",
+      "accessibleName": "Home",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-home\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 92,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "nav-sidebar-create",
+      "role": "button",
+      "accessibleName": "Create Set",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-create\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 140,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "nav-sidebar-stats",
+      "role": "button",
+      "accessibleName": "Stats",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-stats\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 188,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "nav-sidebar-settings",
+      "role": "button",
+      "accessibleName": "Settings",
+      "tag": "button",
+      "type": "button",
+      "selector": "[data-testid=\"nav-sidebar-settings\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 16,
+        "y": 236,
+        "width": 227,
+        "height": 44
+      }
+    },
+    {
+      "route": "#/settings",
+      "testId": "shell-create-set-btn",
+      "role": "button",
+      "accessibleName": "Create",
+      "tag": "button",
+      "selector": "[data-testid=\"shell-create-set-btn\"]",
+      "visible": true,
+      "boundingBox": {
+        "x": 1169,
+        "y": 12,
+        "width": 95,
+        "height": 36
+      }
+    }
+  ],
+  "violations": [
+    {
+      "route": "#/",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    },
+    {
+      "route": "#/set/sample-deck",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    },
+    {
+      "route": "#/set/sample-deck",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Options\"]",
+      "htmlSnippet": "<button class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-md \" aria-label=\"Options\" aria-haspopup=\"true\" aria-expanded=\"false\"><svg width=\"18\" height=\""
+    },
+    {
+      "route": "#/set/sample-deck/edit",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    },
+    {
+      "route": "#/create",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    },
+    {
+      "route": "#/stats",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    },
+    {
+      "route": "#/settings",
+      "description": "Interactive control is missing data-testid",
+      "selector": "button[aria-label=\"Collapse sidebar\"]",
+      "htmlSnippet": "<button type=\"button\" class=\"ui-icon-btn ui-icon-btn-ghost ui-icon-btn-sm\" aria-label=\"Collapse sidebar\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 2"
+    }
+  ]
+}

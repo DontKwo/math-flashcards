@@ -191,6 +191,11 @@
 }
 
 /* Study Screen */
+.study-card-perspective {
+  perspective: 1000px;
+  width: 100%;
+}
+
 .study-card-flip {
   min-height: 260px;
   display: flex;
@@ -199,6 +204,14 @@
   align-items: center;
   text-align: center;
   padding: var(--space-8);
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-card-flip {
+    transition: none;
+  }
 }
 
 .study-math-preview {
@@ -230,4 +243,58 @@
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: var(--text-xs);
+}
+
+.study-mc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.study-mc-btn {
+  padding: var(--space-4);
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  cursor: pointer;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.study-mc-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+}
+
+.study-mc-btn.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.study-round-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.study-stats-pills {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.study-setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
 }

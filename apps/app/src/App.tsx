@@ -6,15 +6,20 @@ import { MathLiveField } from './components/MathLiveField.tsx';
 import { FlashcardViewer } from './components/FlashcardViewer.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
-import { SettingsModal, loadSettings, type AppSettings } from './components/SettingsModal.tsx';
+import { SettingsModal, loadSettings, applyTheme, type AppSettings } from './components/SettingsModal.tsx';
 import { AnalyticsView } from './components/AnalyticsView.tsx';
-import { loadSets, saveSet, saveCard, type FlashcardSet } from './data/storage.ts';
+import { loadSets, saveSet, saveCard, deleteCard, type FlashcardSet } from './data/storage.ts';
 import type { FlashcardItem } from './data/sample-deck.ts';
 
 type AppMode = 'study' | 'learn' | 'analytics';
 
+interface ToastState {
+  message: string;
+  onUndo?: () => void;
+}
+
 export const App: React.FC = () => {
-  const [sets, setSets] = useState<FlashcardSet[]>([]);
+  const [sets, setSets] = useState<FlashcardSet[]>(() => loadSets());
   const [activeSetId, setActiveSetId] = useState<string>('sample-deck');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<AppMode>('learn');
@@ -23,21 +28,33 @@ export const App: React.FC = () => {
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [toast, setToast] = useState<ToastState | null>(null);
 
-  const [settings, setSettings] = useState<AppSettings>(loadSettings());
+  const [settings, setSettings] = useState<AppSettings>(() => {
+    const loaded = loadSettings();
+    applyTheme(loaded.theme);
+    return loaded;
+  });
 
   const [showCardCreator, setShowCardCreator] = useState(false);
+  const [editingCard, setEditingCard] = useState<FlashcardItem | undefined>(undefined);
   const [showSetSelector, setShowSetSelector] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
-    const loadedSets = loadSets();
-    setSets(loadedSets);
-  }, []);
+    applyTheme(settings.theme);
+  }, [settings.theme]);
 
   const activeSet = sets.find((s) => s.id === activeSetId) || sets[0];
   const deck = activeSet?.cards || [];
   const currentCard = deck[currentIndex];
+
+  const showToastNotification = useCallback((message: string, onUndo?: () => void): void => {
+    setToast({ message, onUndo });
+    setTimeout(() => {
+      setToast((prev) => (prev?.message === message ? null : prev));
+    }, 4500);
+  }, []);
 
   const handleNext = useCallback((): void => {
     if (deck.length === 0) return;
@@ -95,38 +112,82 @@ export const App: React.FC = () => {
       cards: [],
     };
     saveSet(newSet);
-    setSets(loadSets());
+    const updated = loadSets();
+    setSets(updated);
     setActiveSetId(newSet.id);
     setCurrentIndex(0);
+    showToastNotification(`Created deck "${name}"`);
   };
 
   const handleSaveCard = (card: FlashcardItem): void => {
     saveCard(activeSetId, card);
     setSets(loadSets());
+    setEditingCard(undefined);
+    showToastNotification(`Card "${card.title}" saved`);
+  };
+
+  const handleBulkAddCards = (cards: FlashcardItem[]): void => {
+    for (const card of cards) {
+      saveCard(activeSetId, card);
+    }
+    setSets(loadSets());
+    showToastNotification(`Imported ${cards.length} cards`);
+  };
+
+  const handleDeleteCard = (cardId: string): void => {
+    const cardToDelete = deck.find((c) => c.id === cardId);
+    if (!cardToDelete) return;
+
+    deleteCard(activeSetId, cardId);
+    setSets(loadSets());
+    setCurrentIndex((prev) => Math.max(0, Math.min(prev, deck.length - 2)));
+
+    showToastNotification(`Card deleted`, () => {
+      saveCard(activeSetId, cardToDelete);
+      setSets(loadSets());
+    });
   };
 
   const progressPercent = deck.length > 0 ? ((currentIndex + 1) / deck.length) * 100 : 0;
 
   return (
     <>
-      <header className="app-header">
+      <header className="app-header" role="banner">
         <div className="brand">
-          <span className="brand-title">Formula Flash</span>
+          <h1 className="brand-title">Formula Flash</h1>
         </div>
 
-        <div className="header-actions">
-          <button type="button" className="header-btn" onClick={() => setShowSetSelector(true)}>
+        <nav className="header-actions" aria-label="Deck and Settings Navigation">
+          <button
+            type="button"
+            className="header-btn"
+            onClick={() => setShowSetSelector(true)}
+            aria-label="Select Deck"
+          >
             Decks
           </button>
-          <button type="button" className="header-btn" onClick={() => setShowCardCreator(true)}>
-            Add Card
+          <button
+            type="button"
+            className="header-btn"
+            onClick={() => {
+              setEditingCard(undefined);
+              setShowCardCreator(true);
+            }}
+            aria-label="Add Card"
+          >
+            + Card
           </button>
-          <button type="button" className="header-btn" onClick={() => setShowSettings(true)}>
+          <button
+            type="button"
+            className="header-btn"
+            onClick={() => setShowSettings(true)}
+            aria-label="Settings"
+          >
             Settings
           </button>
-        </div>
+        </nav>
 
-        <div className="mode-toggle" role="tablist">
+        <div className="mode-toggle" role="tablist" aria-label="Study modes">
           <button
             type="button"
             role="tab"
@@ -157,202 +218,284 @@ export const App: React.FC = () => {
         </div>
       </header>
 
-      {deck.length === 0 ? (
-        <div className="deck-meta" style={{ justifyContent: 'center', padding: '40px', textAlign: 'center' }}>
-          <div>
-            <h2 style={{ marginBottom: '16px' }}>This deck is empty</h2>
-            <button type="button" className="btn-primary" onClick={() => setShowCardCreator(true)}>
-              Add your first card
-            </button>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="deck-meta">
-            <div>
-              <span className="deck-tag" style={{ marginRight: '8px' }}>{activeSet?.name}</span>
-              <span className="deck-tag">{currentCard.category}</span>
+      <main className="app-main">
+        {deck.length === 0 ? (
+          <section className="flashcard" style={{ textAlign: 'center', padding: '40px 20px', justifyContent: 'center' }}>
+            <h2 className="card-title">This deck is empty</h2>
+            <p className="card-prompt" style={{ marginBottom: '24px' }}>
+              Add equations or terms to start practicing in Learn or Flashcard mode.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+              <button
+                type="button"
+                className="btn-primary"
+                style={{ flex: 'none', minWidth: '180px' }}
+                onClick={() => {
+                  setEditingCard(undefined);
+                  setShowCardCreator(true);
+                }}
+              >
+                Add Your First Card
+              </button>
             </div>
-            <span className="card-counter">
-              Card {currentIndex + 1} of {deck.length}
-            </span>
-          </div>
+          </section>
+        ) : (
+          <>
+            <section className="deck-meta" aria-label="Deck details">
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <span className="deck-tag">{activeSet?.name}</span>
+                <span className="deck-tag">{currentCard.category}</span>
+              </div>
+              <span className="card-counter">
+                Card {currentIndex + 1} of {deck.length}
+              </span>
+            </section>
 
-          <div className="progress-bar-container">
-            <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
-          </div>
+            <div
+              className="progress-bar-container"
+              role="progressbar"
+              aria-valuenow={Math.round(progressPercent)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Session progress"
+            >
+              <div className="progress-bar-fill" style={{ width: `${progressPercent}%` }} />
+            </div>
 
-          {mode === 'analytics' ? (
-            <AnalyticsView
-              stats={{
-                mastered: 0,
-                proficient: 0,
-                familiar: 0,
-                unseen: deck.length,
-              }}
-              totalSessions={score.total > 0 ? 1 : 0}
-              streakDays={1}
-            />
-          ) : mode === 'study' ? (
-            <div className="flashcard-wrapper">
-              <FlashcardViewer
-                card={currentCard}
-                isFlipped={isFlipped}
-                onFlip={() => setIsFlipped(!isFlipped)}
+            {mode === 'analytics' ? (
+              <AnalyticsView
+                stats={{
+                  mastered: score.correct,
+                  proficient: 0,
+                  familiar: Math.max(0, score.total - score.correct),
+                  unseen: Math.max(0, deck.length - score.total),
+                }}
+                totalSessions={score.total > 0 ? 1 : 0}
+                streakDays={1}
               />
-              <div className="nav-controls" style={{ marginTop: '16px' }}>
-                <button type="button" className="btn-secondary" onClick={handlePrev}>
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={() => setIsFlipped(!isFlipped)}
-                >
-                  Flip Card
-                </button>
-                <button type="button" className="btn-secondary" onClick={handleNext}>
-                  Next
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="learn-panel">
-              <div className="flashcard" style={{ minHeight: 'auto' }}>
-                <div className="card-body" style={{ alignItems: 'flex-start', textAlign: 'left' }}>
-                  <h2 className="card-title">{currentCard.title}</h2>
-                  <p className="card-prompt">{currentCard.prompt}</p>
-                </div>
-              </div>
-
-              {showHint && currentCard.hint && (
-                <div className="hint-box">
-                  <strong>Hint: </strong>
-                  {currentCard.hint}
-                </div>
-              )}
-
-              <div className="input-container">
-                <label htmlFor="math-answer-input" className="input-label">
-                  Type Equation (LaTeX / ASCII)
-                </label>
-                <MathLiveField
-                  value={userAnswer}
-                  onChange={setUserAnswer}
-                  placeholder="e.g. PV = nRT"
-                  className="math-input"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleCheckAnswer();
-                    }
-                  }}
+            ) : mode === 'study' ? (
+              <section className="flashcard-wrapper" aria-label="Flashcard Viewer">
+                <FlashcardViewer
+                  card={currentCard}
+                  isFlipped={isFlipped}
+                  onFlip={() => setIsFlipped(!isFlipped)}
                 />
-
-                <VirtualMathToolbar onInsert={handleInsertSnippet} />
-
-                <div className="preview-card">
-                  {userAnswer.trim() ? (
-                    <MathDisplay latex={userAnswer} display={false} />
-                  ) : (
-                    <span className="preview-placeholder">Live equation preview appears here</span>
-                  )}
+                <div className="nav-controls" style={{ marginTop: '16px' }}>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={handlePrev}
+                    aria-label="Previous card"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={() => setIsFlipped(!isFlipped)}
+                    aria-label="Flip Card"
+                  >
+                    Flip Card
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={handleNext}
+                    aria-label="Next card"
+                  >
+                    Next
+                  </button>
                 </div>
-              </div>
 
-              {verdict ? (
-                <div className={`verdict-card ${verdict.correct ? 'correct' : 'incorrect'}`}>
-                  <div className="verdict-header">
-                    {verdict.correct ? 'Correct' : 'Not quite right'}
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '12px' }}>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    style={{ flex: 'none', height: '38px', minHeight: '38px', fontSize: '13px' }}
+                    onClick={() => {
+                      setEditingCard(currentCard);
+                      setShowCardCreator(true);
+                    }}
+                  >
+                    Edit Card
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    style={{ flex: 'none', height: '38px', minHeight: '38px', fontSize: '13px' }}
+                    onClick={() => handleDeleteCard(currentCard.id)}
+                  >
+                    Delete Card
+                  </button>
+                </div>
+              </section>
+            ) : (
+              <section className="learn-panel" aria-label="Learn Interactive Mode">
+                <article className="flashcard" style={{ minHeight: 'auto' }}>
+                  <div className="card-body" style={{ alignItems: 'flex-start', textAlign: 'left' }}>
+                    <h2 className="card-title">{currentCard.title}</h2>
+                    <p className="card-prompt">{currentCard.prompt}</p>
                   </div>
-                  <div className="verdict-detail">
-                    {verdict.correct ? (
-                      <span>
-                        Verified via <strong>{verdict.via}</strong> equivalence
-                        {verdict.via === 'structural' && ' (algebraic AST match)'}.
-                      </span>
+                </article>
+
+                {showHint && currentCard.hint && (
+                  <aside className="hint-box" role="note" aria-label="Hint">
+                    <strong>Hint: </strong>
+                    {currentCard.hint}
+                  </aside>
+                )}
+
+                <div className="input-container">
+                  <label htmlFor="math-answer-input" className="input-label">
+                    Type Equation (LaTeX / ASCII)
+                  </label>
+                  <MathLiveField
+                    value={userAnswer}
+                    onChange={setUserAnswer}
+                    placeholder="e.g. PV = nRT"
+                    className="math-input"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleCheckAnswer();
+                      }
+                    }}
+                  />
+
+                  <VirtualMathToolbar onInsert={handleInsertSnippet} />
+
+                  <div className="preview-card" aria-label="Equation preview">
+                    {userAnswer.trim() ? (
+                      <MathDisplay latex={userAnswer} display={false} />
                     ) : (
-                      <div className="verdict-compare">
-                        <div>
-                          <span>Expected: </span>
-                          <MathDisplay latex={currentCard.latexAnswer} display={false} />
-                        </div>
-                        {userAnswer && (
-                          <div>
-                            <span>You entered: </span>
-                            <MathDisplay latex={userAnswer} display={false} />
-                          </div>
-                        )}
-                        {currentCard.explanation && (
-                          <div className="card-explanation" style={{ marginTop: '8px' }}>
-                            {currentCard.explanation}
-                          </div>
-                        )}
-                      </div>
+                      <span className="preview-placeholder">Live equation preview appears here</span>
                     )}
                   </div>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    style={{ marginTop: '8px' }}
-                    onClick={handleNext}
-                  >
-                    {verdict.correct ? 'Next Card' : 'Continue'}
-                  </button>
                 </div>
-              ) : (
-                <div className="nav-controls">
-                  {currentCard.hint && (
+
+                {verdict ? (
+                  <div
+                    className={`verdict-card ${verdict.correct ? 'correct' : 'incorrect'}`}
+                    role="alert"
+                  >
+                    <div className="verdict-header">
+                      {verdict.correct ? '✓ Correct' : '✗ Not quite right'}
+                    </div>
+                    <div className="verdict-detail">
+                      {verdict.correct ? (
+                        <span>
+                          Verified via <strong>{verdict.via}</strong> equivalence
+                          {verdict.via === 'structural' && ' (algebraic AST match)'}.
+                        </span>
+                      ) : (
+                        <div className="verdict-compare">
+                          <div className="verdict-compare-box">
+                            <strong>Expected Answer:</strong>
+                            <MathDisplay latex={currentCard.latexAnswer} display={false} />
+                          </div>
+                          {userAnswer && (
+                            <div className="verdict-compare-box">
+                              <strong>Your Input:</strong>
+                              <MathDisplay latex={userAnswer} display={false} />
+                            </div>
+                          )}
+                          {currentCard.explanation && (
+                            <div className="card-explanation">
+                              <strong>Note: </strong>
+                              {currentCard.explanation}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                     <button
                       type="button"
-                      className="btn-secondary"
-                      onClick={() => setShowHint(!showHint)}
+                      className="btn-primary"
+                      style={{ marginTop: '8px' }}
+                      onClick={handleNext}
                     >
-                      {showHint ? 'Hide Hint' : 'Hint'}
+                      {verdict.correct ? 'Next Card' : 'Continue'}
                     </button>
-                  )}
-                  <button type="button" className="btn-secondary" onClick={handleShowAnswer}>
-                    Reveal
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    disabled={!userAnswer.trim()}
-                    onClick={handleCheckAnswer}
-                  >
-                    Check Answer
-                  </button>
-                </div>
-              )}
+                  </div>
+                ) : (
+                  <div className="nav-controls">
+                    {currentCard.hint && (
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        onClick={() => setShowHint(!showHint)}
+                      >
+                        {showHint ? 'Hide Hint' : 'Hint'}
+                      </button>
+                    )}
+                    <button type="button" className="btn-secondary" onClick={handleShowAnswer}>
+                      Reveal
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-primary"
+                      disabled={!userAnswer.trim()}
+                      onClick={handleCheckAnswer}
+                    >
+                      Check Answer
+                    </button>
+                  </div>
+                )}
 
-              <div className="nav-controls" style={{ marginTop: '8px' }}>
-                <button type="button" className="btn-secondary" onClick={handlePrev}>
-                  Previous
-                </button>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flex: 1,
-                    fontSize: '13px',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  Session: {score.correct} / {score.total} correct
+                <div className="nav-controls" style={{ marginTop: '8px' }}>
+                  <button type="button" className="btn-secondary" onClick={handlePrev}>
+                    Previous
+                  </button>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flex: 1,
+                      fontSize: '14px',
+                      color: 'var(--text-secondary)',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Score: {score.correct} / {score.total}
+                  </div>
+                  <button type="button" className="btn-secondary" onClick={handleNext}>
+                    Next
+                  </button>
                 </div>
-                <button type="button" className="btn-secondary" onClick={handleNext}>
-                  Next
-                </button>
-              </div>
-            </div>
+              </section>
+            )}
+          </>
+        )}
+      </main>
+
+      {/* Undo / Feedback Toast */}
+      {toast && (
+        <aside className="toast-container" role="status" aria-live="polite">
+          <span>{toast.message}</span>
+          {toast.onUndo && (
+            <button
+              type="button"
+              className="toast-btn"
+              onClick={() => {
+                toast.onUndo?.();
+                setToast(null);
+              }}
+            >
+              Undo
+            </button>
           )}
-        </>
+        </aside>
       )}
 
       {showCardCreator && (
         <CardCreatorModal
+          initialCard={editingCard}
           onSave={handleSaveCard}
-          onClose={() => setShowCardCreator(false)}
+          onBulkAdd={handleBulkAddCards}
+          onClose={() => {
+            setShowCardCreator(false);
+            setEditingCard(undefined);
+          }}
         />
       )}
 

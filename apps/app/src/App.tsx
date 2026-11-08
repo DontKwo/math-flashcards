@@ -160,6 +160,7 @@ export const App: React.FC = () => {
         <nav className="header-actions" aria-label="Deck and Settings Navigation">
           <button
             type="button"
+            data-testid="nav-decks-btn"
             className="header-btn"
             onClick={() => setShowSetSelector(true)}
             aria-label="Select Deck"
@@ -168,6 +169,7 @@ export const App: React.FC = () => {
           </button>
           <button
             type="button"
+            data-testid="nav-add-card-btn"
             className="header-btn"
             onClick={() => {
               setEditingCard(undefined);
@@ -179,6 +181,7 @@ export const App: React.FC = () => {
           </button>
           <button
             type="button"
+            data-testid="nav-settings-btn"
             className="header-btn"
             onClick={() => setShowSettings(true)}
             aria-label="Settings"
@@ -191,6 +194,7 @@ export const App: React.FC = () => {
           <button
             type="button"
             role="tab"
+            data-testid="mode-tab-learn"
             aria-selected={mode === 'learn'}
             className={`mode-tab ${mode === 'learn' ? 'active' : ''}`}
             onClick={() => setMode('learn')}
@@ -200,6 +204,7 @@ export const App: React.FC = () => {
           <button
             type="button"
             role="tab"
+            data-testid="mode-tab-study"
             aria-selected={mode === 'study'}
             className={`mode-tab ${mode === 'study' ? 'active' : ''}`}
             onClick={() => setMode('study')}
@@ -209,6 +214,7 @@ export const App: React.FC = () => {
           <button
             type="button"
             role="tab"
+            data-testid="mode-tab-analytics"
             aria-selected={mode === 'analytics'}
             className={`mode-tab ${mode === 'analytics' ? 'active' : ''}`}
             onClick={() => setMode('analytics')}
@@ -228,6 +234,7 @@ export const App: React.FC = () => {
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
               <button
                 type="button"
+                data-testid="empty-add-card-btn"
                 className="btn-primary"
                 style={{ flex: 'none', minWidth: '180px' }}
                 onClick={() => {
@@ -283,6 +290,7 @@ export const App: React.FC = () => {
                 <div className="nav-controls" style={{ marginTop: '16px' }}>
                   <button
                     type="button"
+                    data-testid="study-prev-btn"
                     className="btn-secondary"
                     onClick={handlePrev}
                     aria-label="Previous card"
@@ -291,6 +299,7 @@ export const App: React.FC = () => {
                   </button>
                   <button
                     type="button"
+                    data-testid="study-flip-btn"
                     className="btn-primary"
                     onClick={() => setIsFlipped(!isFlipped)}
                     aria-label="Flip Card"
@@ -299,6 +308,7 @@ export const App: React.FC = () => {
                   </button>
                   <button
                     type="button"
+                    data-testid="study-next-btn"
                     className="btn-secondary"
                     onClick={handleNext}
                     aria-label="Next card"
@@ -310,6 +320,7 @@ export const App: React.FC = () => {
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '12px' }}>
                   <button
                     type="button"
+                    data-testid="study-edit-btn"
                     className="btn-secondary"
                     style={{ flex: 'none', height: '38px', minHeight: '38px', fontSize: '13px' }}
                     onClick={() => {
@@ -321,6 +332,7 @@ export const App: React.FC = () => {
                   </button>
                   <button
                     type="button"
+                    data-testid="study-delete-btn"
                     className="btn-danger"
                     style={{ flex: 'none', height: '38px', minHeight: '38px', fontSize: '13px' }}
                     onClick={() => handleDeleteCard(currentCard.id)}
@@ -350,6 +362,7 @@ export const App: React.FC = () => {
                     Type Equation (LaTeX / ASCII)
                   </label>
                   <MathLiveField
+                    data-testid="learn-answer-input"
                     value={userAnswer}
                     onChange={setUserAnswer}
                     placeholder="e.g. PV = nRT"
@@ -409,6 +422,7 @@ export const App: React.FC = () => {
                     </div>
                     <button
                       type="button"
+                      data-testid="verdict-continue-btn"
                       className="btn-primary"
                       style={{ marginTop: '8px' }}
                       onClick={handleNext}
@@ -421,17 +435,24 @@ export const App: React.FC = () => {
                     {currentCard.hint && (
                       <button
                         type="button"
+                        data-testid="learn-hint-btn"
                         className="btn-secondary"
                         onClick={() => setShowHint(!showHint)}
                       >
                         {showHint ? 'Hide Hint' : 'Hint'}
                       </button>
                     )}
-                    <button type="button" className="btn-secondary" onClick={handleShowAnswer}>
+                    <button
+                      type="button"
+                      data-testid="learn-reveal-btn"
+                      className="btn-secondary"
+                      onClick={handleShowAnswer}
+                    >
                       Reveal
                     </button>
                     <button
                       type="button"
+                      data-testid="learn-check-btn"
                       className="btn-primary"
                       disabled={!userAnswer.trim()}
                       onClick={handleCheckAnswer}
@@ -442,7 +463,12 @@ export const App: React.FC = () => {
                 )}
 
                 <div className="nav-controls" style={{ marginTop: '8px' }}>
-                  <button type="button" className="btn-secondary" onClick={handlePrev}>
+                  <button
+                    type="button"
+                    data-testid="learn-prev-btn"
+                    className="btn-secondary"
+                    onClick={handlePrev}
+                  >
                     Previous
                   </button>
                   <div
@@ -458,7 +484,12 @@ export const App: React.FC = () => {
                   >
                     Score: {score.correct} / {score.total}
                   </div>
-                  <button type="button" className="btn-secondary" onClick={handleNext}>
+                  <button
+                    type="button"
+                    data-testid="learn-next-btn"
+                    className="btn-secondary"
+                    onClick={handleNext}
+                  >
                     Next
                   </button>
                 </div>
@@ -475,6 +506,7 @@ export const App: React.FC = () => {
           {toast.onUndo && (
             <button
               type="button"
+              data-testid="toast-undo-btn"
               className="toast-btn"
               onClick={() => {
                 toast.onUndo?.();

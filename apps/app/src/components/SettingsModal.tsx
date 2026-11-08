@@ -108,6 +108,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
           </h2>
           <button
             type="button"
+            data-testid="settings-close-btn"
             className="modal-close-btn"
             onClick={onClose}
             aria-label="Close Settings dialog"
@@ -131,6 +132,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
               <label className="switch">
                 <input
                   id="accents-matter"
+                  data-testid="settings-accents-switch"
                   type="checkbox"
                   checked={settings.accentsMatter}
                   onChange={() => handleToggle('accentsMatter')}
@@ -151,6 +153,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
               <label className="switch">
                 <input
                   id="greek-variants"
+                  data-testid="settings-greek-switch"
                   type="checkbox"
                   checked={settings.greekVariantsEqual}
                   onChange={() => handleToggle('greekVariantsEqual')}
@@ -171,6 +174,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
               <label className="switch">
                 <input
                   id="side-swap"
+                  data-testid="settings-sideswap-switch"
                   type="checkbox"
                   checked={settings.allowSideSwap}
                   onChange={() => handleToggle('allowSideSwap')}
@@ -192,6 +196,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
               <div className="segmented-control" role="group" aria-label="Theme Mode Selection">
                 <button
                   type="button"
+                  data-testid="settings-theme-dark-btn"
                   className={`segmented-btn ${settings.theme === 'dark' ? 'active' : ''}`}
                   onClick={() => handleThemeChange('dark')}
                   aria-pressed={settings.theme === 'dark'}
@@ -200,6 +205,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
                 </button>
                 <button
                   type="button"
+                  data-testid="settings-theme-light-btn"
                   className={`segmented-btn ${settings.theme === 'light' ? 'active' : ''}`}
                   onClick={() => handleThemeChange('light')}
                   aria-pressed={settings.theme === 'light'}
@@ -208,6 +214,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
                 </button>
                 <button
                   type="button"
+                  data-testid="settings-theme-system-btn"
                   className={`segmented-btn ${settings.theme === 'system' ? 'active' : ''}`}
                   onClick={() => handleThemeChange('system')}
                   aria-pressed={settings.theme === 'system'}
@@ -230,6 +237,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
               {!showConfirmReset ? (
                 <button
                   type="button"
+                  data-testid="settings-reset-init-btn"
                   className="btn-secondary"
                   style={{ minWidth: '100px', flex: 'none', height: '40px', minHeight: '40px' }}
                   onClick={() => setShowConfirmReset(true)}
@@ -240,6 +248,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button
                     type="button"
+                    data-testid="settings-reset-confirm-btn"
                     className="btn-danger"
                     style={{ minWidth: '90px', flex: 'none', height: '40px', minHeight: '40px' }}
                     onClick={handleResetToDefaults}
@@ -248,6 +257,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
                   </button>
                   <button
                     type="button"
+                    data-testid="settings-reset-cancel-btn"
                     className="btn-secondary"
                     style={{ minWidth: '70px', flex: 'none', height: '40px', minHeight: '40px' }}
                     onClick={() => setShowConfirmReset(false)}
@@ -261,7 +271,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
         </div>
 
         <div className="modal-actions">
-          <button type="button" className="btn-primary" onClick={onClose}>
+          <button
+            type="button"
+            data-testid="settings-done-btn"
+            className="btn-primary"
+            onClick={onClose}
+          >
             Done
           </button>
         </div>

@@ -55,6 +55,7 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
           </h2>
           <button
             type="button"
+            data-testid="set-selector-close-btn"
             className="modal-close-btn"
             onClick={onClose}
             aria-label="Close dialog"
@@ -66,9 +67,10 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
         {!isCreating ? (
           <>
             <div className="set-list" role="listbox" aria-label="Deck List">
-              {sets.map((set) => (
+              {sets.map((set, idx) => (
                 <div
                   key={set.id}
+                  data-testid={`set-selector-item-${idx}`}
                   className={`set-item ${set.id === activeSetId ? 'active' : ''}`}
                   onClick={() => {
                     onSelectSet(set.id);
@@ -95,11 +97,17 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
               ))}
             </div>
             <div className="modal-actions" style={{ justifyContent: 'space-between' }}>
-              <button type="button" className="btn-secondary" onClick={onClose}>
+              <button
+                type="button"
+                data-testid="set-selector-cancel-btn"
+                className="btn-secondary"
+                onClick={onClose}
+              >
                 Close
               </button>
               <button
                 type="button"
+                data-testid="set-selector-new-btn"
                 className="btn-primary"
                 onClick={() => setIsCreating(true)}
               >
@@ -113,6 +121,7 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
               <label htmlFor="set-name">Deck Name</label>
               <input
                 id="set-name"
+                data-testid="set-create-name-input"
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
@@ -124,6 +133,7 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
               <label htmlFor="set-category">Category (Optional)</label>
               <input
                 id="set-category"
+                data-testid="set-create-category-input"
                 type="text"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
@@ -131,11 +141,17 @@ export const SetSelectorModal: React.FC<SetSelectorModalProps> = ({
               />
             </div>
             <div className="modal-actions" style={{ marginTop: '20px' }}>
-              <button type="button" className="btn-secondary" onClick={() => setIsCreating(false)}>
+              <button
+                type="button"
+                data-testid="set-create-back-btn"
+                className="btn-secondary"
+                onClick={() => setIsCreating(false)}
+              >
                 Back
               </button>
               <button
                 type="button"
+                data-testid="set-create-submit-btn"
                 className="btn-primary"
                 onClick={handleCreate}
                 disabled={!newName.trim()}

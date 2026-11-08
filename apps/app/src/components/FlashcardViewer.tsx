@@ -16,6 +16,7 @@ export const FlashcardViewer: React.FC<FlashcardViewerProps> = ({ card, isFlippe
     >
       <div
         className="flashcard-inner"
+        data-testid="flashcard-card-inner"
         style={{
           position: 'relative',
           width: '100%',

@@ -21,6 +21,7 @@ export interface MathLiveFieldProps {
   className?: string;
   readOnly?: boolean;
   onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
+  'data-testid'?: string;
 }
 
 export const MathLiveField: React.FC<MathLiveFieldProps> = ({
@@ -30,6 +31,7 @@ export const MathLiveField: React.FC<MathLiveFieldProps> = ({
   className,
   readOnly,
   onKeyDown,
+  'data-testid': testId,
 }) => {
   const mfRef = useRef<MathfieldElement>(null);
 
@@ -62,6 +64,7 @@ export const MathLiveField: React.FC<MathLiveFieldProps> = ({
   return (
     <math-field
       ref={mfRef}
+      data-testid={testId}
       class={className}
       readonly={readOnly ? true : undefined}
       onKeyDown={onKeyDown}

@@ -30,7 +30,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm --filter app run preview --port 4173',
+    command: 'pnpm --filter app run build && pnpm --filter app run preview --port 4173',
     url: 'http://localhost:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 60000,

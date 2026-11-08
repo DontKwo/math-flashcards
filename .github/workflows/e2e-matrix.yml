@@ -24,6 +24,7 @@ jobs:
           node-version: 22
           cache: 'pnpm'
       - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter app run build
       - run: npx playwright install --with-deps chromium
       - run: pnpm run test:smoke
       - name: Verify action coverage
@@ -47,6 +48,7 @@ jobs:
           node-version: 22
           cache: 'pnpm'
       - run: pnpm install --no-frozen-lockfile
+      - run: pnpm --filter app run build
       - run: npx playwright install --with-deps chromium
       - run: pnpm exec playwright test --project=desktop-chrome --shard=${{ matrix.shard }}/4
       - uses: actions/upload-artifact@v4

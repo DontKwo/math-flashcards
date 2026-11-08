@@ -1,3 +1,4 @@
+import { loadCfdCompleteDeck } from './cfd-loader';
 import { SAMPLE_DECK, CFD_GLOSSARY, type FlashcardItem } from './sample-deck';
 import type { TermDefinition } from '@formulaflash/core';
 
@@ -7,9 +8,24 @@ export interface FlashcardSet {
   category: string;
   cards: FlashcardItem[];
   glossary?: Record<string, TermDefinition>;
+  isDefault?: boolean;
 }
 
 const STORAGE_KEY_SETS = 'formulaflash_sets';
+const STORAGE_KEY_SEED_VERSION = 'formulaflash_seed_version';
+const CURRENT_SEED_VERSION = 2;
+
+export const CFD_DEFAULT_SET_ID = 'cfd-complete-reference';
+
+export function createCfdDefaultSet(): FlashcardSet {
+  return {
+    id: CFD_DEFAULT_SET_ID,
+    name: 'CFD: Complete Reference',
+    category: 'Fluid Dynamics',
+    cards: loadCfdCompleteDeck(),
+    isDefault: true,
+  };
+}
 
 function getStorageSets(): FlashcardSet[] {
   const data = localStorage.getItem(STORAGE_KEY_SETS);
@@ -22,26 +38,29 @@ function getStorageSets(): FlashcardSet[] {
 }
 
 export function loadSets(): FlashcardSet[] {
-  const sets = getStorageSets();
+  const rawSets = getStorageSets();
+  const seedVersionStr = localStorage.getItem(STORAGE_KEY_SEED_VERSION);
+  const seedVersion = seedVersionStr ? parseInt(seedVersionStr, 10) : 0;
 
-  // Ensure the sample deck is always available and up to date with terms
-  const existingSample = sets.find((s) => s.id === 'sample-deck');
-  if (!existingSample) {
-    sets.unshift({
-      id: 'sample-deck',
-      name: 'CFD & Physics Essentials',
-      category: 'Fluid Dynamics',
-      cards: SAMPLE_DECK,
-      glossary: CFD_GLOSSARY,
-    });
-  } else if (!existingSample.cards[0]?.terms || existingSample.cards.length < SAMPLE_DECK.length) {
-    // Migration for existing saved sets lacking terms on sample deck
-    existingSample.name = 'CFD & Physics Essentials';
-    existingSample.category = 'Fluid Dynamics';
-    existingSample.cards = SAMPLE_DECK;
-    existingSample.glossary = { ...CFD_GLOSSARY, ...(existingSample.glossary || {}) };
-    saveSet(existingSample);
+  let sets = [...rawSets];
+
+  if (sets.length === 0) {
+    sets = [createCfdDefaultSet()];
+    localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
+    localStorage.setItem(STORAGE_KEY_SEED_VERSION, CURRENT_SEED_VERSION.toString());
+    return sets;
   }
+
+  const existingCfd = sets.find((s) => s.id === CFD_DEFAULT_SET_ID);
+  if (!existingCfd) {
+    sets.unshift(createCfdDefaultSet());
+    localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
+  }
+
+  if (seedVersion < CURRENT_SEED_VERSION) {
+    localStorage.setItem(STORAGE_KEY_SEED_VERSION, CURRENT_SEED_VERSION.toString());
+  }
+
   return sets;
 }
 
@@ -57,7 +76,7 @@ export function saveSet(set: FlashcardSet): void {
 }
 
 export function deleteSet(setId: string): void {
-  if (setId === 'sample-deck') return; // Cannot delete sample deck
+  if (setId === CFD_DEFAULT_SET_ID) return;
   const sets = loadSets().filter((s) => s.id !== setId);
   localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
 }

@@ -13,3 +13,4 @@ Download the latest Android APK directly on your phone:
 
 On Android, tap the link above to download and install. If prompted, enable "Install unknown apps" in system settings.
 
+EDUCATIONAL DISCLAIMER: Formula Flash / math-flashcards is an interactive mathematics study framework. Provided AS IS without warranty of any kind.

@@ -20,7 +20,7 @@ interface ToastState {
 
 export const App: React.FC = () => {
   const [sets, setSets] = useState<FlashcardSet[]>(() => loadSets());
-  const [activeSetId, setActiveSetId] = useState<string>('sample-deck');
+  const [activeSetId, setActiveSetId] = useState<string>(() => loadSets()[0]?.id || 'cfd-complete-reference');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<AppMode>('learn');
   const [isFlipped, setIsFlipped] = useState(false);

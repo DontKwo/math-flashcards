@@ -31,5 +31,8 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "author": "DontKwo",
+  "license": "GPL-3.0-or-later",
+  "publisher": "DontKwo"
 }

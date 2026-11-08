@@ -1,5 +1,5 @@
 import { loadCfdCompleteDeck } from './cfd-loader';
-import { SAMPLE_DECK, CFD_GLOSSARY, type FlashcardItem } from './sample-deck';
+import type { FlashcardItem } from './sample-deck';
 import type { TermDefinition } from '@formulaflash/core';
 
 export interface FlashcardSet {

@@ -1,10 +1,12 @@
-import { SAMPLE_DECK, type FlashcardItem } from './sample-deck';
+import { SAMPLE_DECK, CFD_GLOSSARY, type FlashcardItem } from './sample-deck';
+import type { TermDefinition } from '@formulaflash/core';
 
 export interface FlashcardSet {
   id: string;
   name: string;
   category: string;
   cards: FlashcardItem[];
+  glossary?: Record<string, TermDefinition>;
 }
 
 const STORAGE_KEY_SETS = 'formulaflash_sets';
@@ -22,14 +24,23 @@ function getStorageSets(): FlashcardSet[] {
 export function loadSets(): FlashcardSet[] {
   const sets = getStorageSets();
 
-  // Ensure the sample deck is always available
-  if (!sets.find((s) => s.id === 'sample-deck')) {
+  // Ensure the sample deck is always available and up to date with terms
+  const existingSample = sets.find((s) => s.id === 'sample-deck');
+  if (!existingSample) {
     sets.unshift({
       id: 'sample-deck',
-      name: 'Sample Deck',
-      category: 'General',
+      name: 'CFD & Physics Essentials',
+      category: 'Fluid Dynamics',
       cards: SAMPLE_DECK,
+      glossary: CFD_GLOSSARY,
     });
+  } else if (!existingSample.cards[0]?.terms || existingSample.cards.length < SAMPLE_DECK.length) {
+    // Migration for existing saved sets lacking terms on sample deck
+    existingSample.name = 'CFD & Physics Essentials';
+    existingSample.category = 'Fluid Dynamics';
+    existingSample.cards = SAMPLE_DECK;
+    existingSample.glossary = { ...CFD_GLOSSARY, ...(existingSample.glossary || {}) };
+    saveSet(existingSample);
   }
   return sets;
 }
@@ -70,6 +81,15 @@ export function deleteCard(setId: string, cardId: string): void {
   const setIndex = sets.findIndex((s) => s.id === setId);
   if (setIndex >= 0) {
     sets[setIndex].cards = sets[setIndex].cards.filter((c) => c.id !== cardId);
+    localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
+  }
+}
+
+export function saveSetGlossary(setId: string, glossary: Record<string, TermDefinition>): void {
+  const sets = loadSets();
+  const setIndex = sets.findIndex((s) => s.id === setId);
+  if (setIndex >= 0) {
+    sets[setIndex].glossary = glossary;
     localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
   }
 }

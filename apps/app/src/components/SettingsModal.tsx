@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+export type TermDefinitionsSetting = 'off' | 'on-request' | 'after-answer' | 'hint-before-answer';
+
 export interface AppSettings {
   accentsMatter: boolean;
   greekVariantsEqual: boolean;
   allowSideSwap: boolean;
   theme: 'dark' | 'light' | 'system';
+  termDefinitionsMode: TermDefinitionsSetting;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -12,6 +15,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   greekVariantsEqual: true,
   allowSideSwap: true,
   theme: 'dark',
+  termDefinitionsMode: 'on-request',
 };
 
 const STORAGE_KEY = 'formulaflash_settings';
@@ -62,7 +66,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const handleToggle = (key: keyof Omit<AppSettings, 'theme'>): void => {
+  const handleToggle = (key: keyof Omit<AppSettings, 'theme' | 'termDefinitionsMode'>): void => {
     const nextSettings: AppSettings = {
       ...settings,
       [key]: !settings[key],
@@ -80,6 +84,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
     setSettings(nextSettings);
     saveSettings(nextSettings);
     applyTheme(newTheme);
+    onSave(nextSettings);
+  };
+
+  const handleTermDefinitionsChange = (mode: TermDefinitionsSetting): void => {
+    const nextSettings: AppSettings = {
+      ...settings,
+      termDefinitionsMode: mode,
+    };
+    setSettings(nextSettings);
+    saveSettings(nextSettings);
     onSave(nextSettings);
   };
 
@@ -115,6 +129,60 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ currentSettings, o
           >
             ×
           </button>
+        </div>
+
+        <div className="settings-section">
+          <span className="settings-section-title">Term Definitions</span>
+          <div className="settings-group">
+            <div className="settings-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+              <div className="settings-label-group">
+                <span className="settings-label">Equation Term Definitions Mode</span>
+                <span className="settings-desc">Choose when symbol definitions and interactive formulas appear while studying.</span>
+              </div>
+              <div className="segmented-control" role="group" aria-label="Term Definitions Mode" style={{ width: '100%' }}>
+                <button
+                  type="button"
+                  data-testid="settings-terms-off-btn"
+                  className={`segmented-btn ${settings.termDefinitionsMode === 'off' ? 'active' : ''}`}
+                  onClick={() => handleTermDefinitionsChange('off')}
+                  aria-pressed={settings.termDefinitionsMode === 'off'}
+                  style={{ fontSize: '12px' }}
+                >
+                  Off
+                </button>
+                <button
+                  type="button"
+                  data-testid="settings-terms-on-request-btn"
+                  className={`segmented-btn ${settings.termDefinitionsMode === 'on-request' ? 'active' : ''}`}
+                  onClick={() => handleTermDefinitionsChange('on-request')}
+                  aria-pressed={settings.termDefinitionsMode === 'on-request'}
+                  style={{ fontSize: '12px' }}
+                >
+                  On request
+                </button>
+                <button
+                  type="button"
+                  data-testid="settings-terms-after-answer-btn"
+                  className={`segmented-btn ${settings.termDefinitionsMode === 'after-answer' ? 'active' : ''}`}
+                  onClick={() => handleTermDefinitionsChange('after-answer')}
+                  aria-pressed={settings.termDefinitionsMode === 'after-answer'}
+                  style={{ fontSize: '12px' }}
+                >
+                  After answer
+                </button>
+                <button
+                  type="button"
+                  data-testid="settings-terms-hint-btn"
+                  className={`segmented-btn ${settings.termDefinitionsMode === 'hint-before-answer' ? 'active' : ''}`}
+                  onClick={() => handleTermDefinitionsChange('hint-before-answer')}
+                  aria-pressed={settings.termDefinitionsMode === 'hint-before-answer'}
+                  style={{ fontSize: '12px' }}
+                >
+                  Hint before
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="settings-section">

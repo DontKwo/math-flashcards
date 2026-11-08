@@ -1279,5 +1279,248 @@
     "preconditions": "Bulk paste creator mode",
     "inputs": [],
     "expectedEffect": "Interacts with creator-bulk-submit-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "learn",
+    "testId": "nav-glossary-btn",
+    "role": "button",
+    "label": "Deck Glossary",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Opens set glossary modal"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-terms-hint-btn",
+    "role": "button",
+    "label": "Peek Term Names & Definitions",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Toggles term hint panel"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-detect-terms-btn",
+    "role": "button",
+    "label": "Detect Terms",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Auto-detects symbols in equation"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-remove-stale-btn",
+    "role": "button",
+    "label": "Remove Stale",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Removes terms no longer in formula"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-manual-symbol-input",
+    "role": "textbox",
+    "label": "Add manual symbol",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Inputs custom manual symbol"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-add-manual-term-btn",
+    "role": "button",
+    "label": "Add Term",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Adds custom term row"
+  },
+  {
+    "screen": "study",
+    "testId": "interactive-terms-toggle-btn",
+    "role": "button",
+    "label": "Terms",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Toggles terms panel"
+  },
+  {
+    "screen": "study",
+    "testId": "term-popover-card",
+    "role": "region",
+    "label": "Term popover card",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Shows term details popover"
+  },
+  {
+    "screen": "study",
+    "testId": "term-popover-close-btn",
+    "role": "button",
+    "label": "Close definition",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Closes term popover"
+  },
+  {
+    "screen": "study",
+    "testId": "term-popover-define-btn",
+    "role": "button",
+    "label": "Define Now",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Opens card creator to define term"
+  },
+  {
+    "screen": "study",
+    "testId": "terms-list-panel",
+    "role": "region",
+    "label": "Terms list panel",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Displays all terms list"
+  },
+  {
+    "screen": "study",
+    "testId": "terms-panel-edit-btn",
+    "role": "button",
+    "label": "Edit Terms",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Opens editor to edit terms"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-close-btn",
+    "role": "button",
+    "label": "Close glossary modal",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Closes set glossary modal"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-search-input",
+    "role": "textbox",
+    "label": "Search symbols or definitions",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Filters glossary terms"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-undefined-filter",
+    "role": "checkbox",
+    "label": "Undefined only",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Toggles undefined filter"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-delete-term-btn",
+    "role": "button",
+    "label": "Delete",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Deletes glossary term"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-name-input",
+    "role": "textbox",
+    "label": "Name / Label",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Updates term name"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-definition-input",
+    "role": "textbox",
+    "label": "Definition",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Updates term definition"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-units-input",
+    "role": "textbox",
+    "label": "Units",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Updates term units"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-copy-to-cards-btn",
+    "role": "button",
+    "label": "Copy Definition to Cards Lacking One",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Copies definition to cards"
+  },
+  {
+    "screen": "set-glossary-modal",
+    "testId": "glossary-done-btn",
+    "role": "button",
+    "label": "Done",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Closes glossary modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-terms-off-btn",
+    "role": "button",
+    "label": "Off",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Sets term definitions mode to off"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-terms-on-request-btn",
+    "role": "button",
+    "label": "On request",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Sets term definitions mode to on-request"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-terms-after-answer-btn",
+    "role": "button",
+    "label": "After answer",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Sets term definitions mode to after-answer"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-terms-hint-btn",
+    "role": "button",
+    "label": "Hint before",
+    "preconditions": "Term definitions authoring and viewing",
+    "inputs": [],
+    "expectedEffect": "Sets term definitions mode to hint-before-answer"
+  },
+  {
+    "screen": "learn",
+    "testId": "session-terms-mode-toggle",
+    "role": "button",
+    "label": "Session terms mode toggle",
+    "preconditions": "Study header meta",
+    "inputs": [],
+    "expectedEffect": "Cycles session terms mode"
+  },
+  {
+    "screen": "study",
+    "testId": "interactive-reveal-symbols-btn",
+    "role": "button",
+    "label": "Reveal Symbols",
+    "preconditions": "Hint before answering mode",
+    "inputs": [],
+    "expectedEffect": "Reveals hidden formula symbols"
   }
 ]

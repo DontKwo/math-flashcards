@@ -10,13 +10,21 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:smoke": "playwright test --project=desktop-chrome --grep=@smoke",
+    "test:matrix": "playwright test --project=desktop-chrome --grep=@matrix",
+    "test:soak": "playwright test --project=desktop-chrome --grep=@soak",
+    "report:matrix": "node scripts/generate-matrix-report.mjs",
     "typecheck": "pnpm -r exec tsc --noEmit"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",
+    "axe-core": "^4.14.0",
     "dependency-cruiser": "^16.0.0",
     "eslint": "^8.0.0",
+    "fast-check": "^4.10.2",
     "prettier": "^3.0.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"

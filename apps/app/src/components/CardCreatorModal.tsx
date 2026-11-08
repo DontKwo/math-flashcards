@@ -263,6 +263,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
             <div className="segmented-control" role="group" aria-label="Creation Mode">
               <button
                 type="button"
+                data-testid="creator-tab-single-btn"
                 className={`segmented-btn ${activeTab === 'single' ? 'active' : ''}`}
                 onClick={() => setActiveTab('single')}
               >
@@ -270,6 +271,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               </button>
               <button
                 type="button"
+                data-testid="creator-tab-bulk-btn"
                 className={`segmented-btn ${activeTab === 'bulk' ? 'active' : ''}`}
                 onClick={() => setActiveTab('bulk')}
               >
@@ -279,6 +281,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
 
             <button
               type="button"
+              data-testid="creator-close-btn"
               className="modal-close-btn"
               onClick={onClose}
               aria-label="Close dialog"
@@ -295,6 +298,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 <label htmlFor="card-title">Card Title *</label>
                 <input
                   id="card-title"
+                  data-testid="creator-title-input"
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -307,6 +311,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 <label htmlFor="card-category">Category / Topic</label>
                 <input
                   id="card-category"
+                  data-testid="creator-category-input"
                   type="text"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -319,6 +324,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               <label htmlFor="card-prompt">Question / Prompt *</label>
               <textarea
                 id="card-prompt"
+                data-testid="creator-prompt-input"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="State the equation relating pressure, volume, moles and temperature..."
@@ -334,10 +340,11 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               </div>
 
               <div style={{ display: 'flex', gap: '4px', marginBottom: '4px', overflowX: 'auto' }}>
-                {TOOLBAR_CATEGORIES.map((cat) => (
+                {TOOLBAR_CATEGORIES.map((cat, idx) => (
                   <button
                     key={cat.name}
                     type="button"
+                    data-testid={`creator-toolbar-cat-${idx}`}
                     className={`segmented-btn ${activeCategory === cat.name ? 'active' : ''}`}
                     style={{ fontSize: '12px', padding: '4px 8px', minHeight: '32px' }}
                     onClick={() => setActiveCategory(cat.name)}
@@ -348,10 +355,11 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               </div>
 
               <div className="math-toolbar" role="toolbar" aria-label="Math insertion buttons">
-                {TOOLBAR_CATEGORIES.find((c) => c.name === activeCategory)?.items.map((item) => (
+                {TOOLBAR_CATEGORIES.find((c) => c.name === activeCategory)?.items.map((item, idx) => (
                   <button
                     key={item.label}
                     type="button"
+                    data-testid={`creator-toolbar-item-${idx}`}
                     className="toolbar-btn"
                     title={item.title}
                     onClick={() => insertSnippet(item.snippet)}
@@ -363,6 +371,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
 
               <textarea
                 id="card-answer-input"
+                data-testid="creator-answer-input"
                 ref={mathInputRef}
                 value={latexAnswer}
                 onChange={(e) => setLatexAnswer(e.target.value)}
@@ -398,6 +407,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 <label htmlFor="card-hint">Hint (Optional)</label>
                 <input
                   id="card-hint"
+                  data-testid="creator-hint-input"
                   type="text"
                   value={hint}
                   onChange={(e) => setHint(e.target.value)}
@@ -409,6 +419,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 <label htmlFor="card-explanation">Explanation / Derivation (Optional)</label>
                 <input
                   id="card-explanation"
+                  data-testid="creator-explanation-input"
                   type="text"
                   value={explanation}
                   onChange={(e) => setExplanation(e.target.value)}
@@ -418,7 +429,12 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
             </div>
 
             <div className="modal-actions" style={{ justifyContent: 'space-between', marginTop: '8px' }}>
-              <button type="button" className="btn-secondary" onClick={onClose}>
+              <button
+                type="button"
+                data-testid="creator-cancel-btn"
+                className="btn-secondary"
+                onClick={onClose}
+              >
                 Cancel
               </button>
 
@@ -426,6 +442,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 {!initialCard && (
                   <button
                     type="button"
+                    data-testid="creator-save-another-btn"
                     className="btn-secondary"
                     onClick={() => handleSave(true)}
                     disabled={!title.trim() || !prompt.trim() || !latexAnswer.trim()}
@@ -435,6 +452,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 )}
                 <button
                   type="button"
+                  data-testid="creator-save-btn"
                   className="btn-primary"
                   onClick={() => handleSave(false)}
                   disabled={!title.trim() || !prompt.trim() || !latexAnswer.trim()}
@@ -451,6 +469,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               <label htmlFor="bulk-delimiter">Separator between Term & Equation</label>
               <select
                 id="bulk-delimiter"
+                data-testid="creator-bulk-delimiter-select"
                 value={bulkDelimiter}
                 onChange={(e) => setBulkDelimiter(e.target.value)}
               >
@@ -466,6 +485,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
               <label htmlFor="bulk-cards-text">Paste Cards (One card per line)</label>
               <textarea
                 id="bulk-cards-text"
+                data-testid="creator-bulk-textarea"
                 value={bulkText}
                 onChange={(e) => setBulkText(e.target.value)}
                 placeholder={'Ideal Gas Law\tPV = nRT\nKinetic Energy\tE = \\frac{1}{2}mv^2\nOhm\'s Law\tV = IR'}
@@ -478,11 +498,17 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
             </div>
 
             <div className="modal-actions" style={{ justifyContent: 'space-between', marginTop: '12px' }}>
-              <button type="button" className="btn-secondary" onClick={onClose}>
+              <button
+                type="button"
+                data-testid="creator-bulk-cancel-btn"
+                className="btn-secondary"
+                onClick={onClose}
+              >
                 Cancel
               </button>
               <button
                 type="button"
+                data-testid="creator-bulk-submit-btn"
                 className="btn-primary"
                 onClick={handleBulkImport}
                 disabled={!bulkText.trim()}

@@ -1,0 +1,1283 @@
+[
+  {
+    "screen": "learn",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-answer-input",
+    "role": "math-field",
+    "label": "",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-answer-input on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-0",
+    "role": "button",
+    "label": "a/b",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-0 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-1",
+    "role": "button",
+    "label": "x²",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-1 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-2",
+    "role": "button",
+    "label": "xₙ",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-2 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-3",
+    "role": "button",
+    "label": "√x",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-3 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-4",
+    "role": "button",
+    "label": "·",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-4 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-5",
+    "role": "button",
+    "label": "±",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-5 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-6",
+    "role": "button",
+    "label": "Δ",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-6 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-7",
+    "role": "button",
+    "label": "x̂",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-7 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-8",
+    "role": "button",
+    "label": "x̄",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-8 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-9",
+    "role": "button",
+    "label": "π",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-9 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-10",
+    "role": "button",
+    "label": "ρ",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-10 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-11",
+    "role": "button",
+    "label": "θ",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-11 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-12",
+    "role": "button",
+    "label": "( )",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-12 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-13",
+    "role": "button",
+    "label": "≤",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-13 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "math-toolbar-btn-14",
+    "role": "button",
+    "label": "≥",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-14 on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-hint-btn",
+    "role": "button",
+    "label": "Hint",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-hint-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-reveal-btn",
+    "role": "button",
+    "label": "Reveal",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-reveal-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-check-btn",
+    "role": "button",
+    "label": "Check Answer",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-check-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-prev-btn",
+    "role": "button",
+    "label": "Previous",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-prev-btn on screen learn"
+  },
+  {
+    "screen": "learn",
+    "testId": "learn-next-btn",
+    "role": "button",
+    "label": "Next",
+    "preconditions": "Main learn mode with sample deck",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-next-btn on screen learn"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "learn-answer-input",
+    "role": "math-field",
+    "label": "",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-answer-input on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-0",
+    "role": "button",
+    "label": "a/b",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-0 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-1",
+    "role": "button",
+    "label": "x²",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-1 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-2",
+    "role": "button",
+    "label": "xₙ",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-2 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-3",
+    "role": "button",
+    "label": "√x",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-3 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-4",
+    "role": "button",
+    "label": "·",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-4 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-5",
+    "role": "button",
+    "label": "±",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-5 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-6",
+    "role": "button",
+    "label": "Δ",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-6 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-7",
+    "role": "button",
+    "label": "x̂",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-7 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-8",
+    "role": "button",
+    "label": "x̄",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-8 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-9",
+    "role": "button",
+    "label": "π",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-9 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-10",
+    "role": "button",
+    "label": "ρ",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-10 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-11",
+    "role": "button",
+    "label": "θ",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-11 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-12",
+    "role": "button",
+    "label": "( )",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-12 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-13",
+    "role": "button",
+    "label": "≤",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-13 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "math-toolbar-btn-14",
+    "role": "button",
+    "label": "≥",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with math-toolbar-btn-14 on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "verdict-continue-btn",
+    "role": "button",
+    "label": "Continue",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with verdict-continue-btn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "learn-prev-btn",
+    "role": "button",
+    "label": "Previous",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-prev-btn on screen learn-verdict"
+  },
+  {
+    "screen": "learn-verdict",
+    "testId": "learn-next-btn",
+    "role": "button",
+    "label": "Next",
+    "preconditions": "Answer checked or revealed",
+    "inputs": [],
+    "expectedEffect": "Interacts with learn-next-btn on screen learn-verdict"
+  },
+  {
+    "screen": "study",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "flashcard-card-inner",
+    "role": "button",
+    "label": "Card front showing question. Tap to flip for equat",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with flashcard-card-inner on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "study-prev-btn",
+    "role": "button",
+    "label": "Previous card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with study-prev-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "study-flip-btn",
+    "role": "button",
+    "label": "Flip Card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with study-flip-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "study-next-btn",
+    "role": "button",
+    "label": "Next card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with study-next-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "study-edit-btn",
+    "role": "button",
+    "label": "Edit Card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with study-edit-btn on screen study"
+  },
+  {
+    "screen": "study",
+    "testId": "study-delete-btn",
+    "role": "button",
+    "label": "Delete Card",
+    "preconditions": "Study flashcards mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with study-delete-btn on screen study"
+  },
+  {
+    "screen": "analytics",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen analytics"
+  },
+  {
+    "screen": "analytics",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen analytics"
+  },
+  {
+    "screen": "analytics",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen analytics"
+  },
+  {
+    "screen": "analytics",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen analytics"
+  },
+  {
+    "screen": "analytics",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen analytics"
+  },
+  {
+    "screen": "analytics",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Analytics stats mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen analytics"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-close-btn",
+    "role": "button",
+    "label": "Close Settings dialog",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-close-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-accents-switch",
+    "role": "input",
+    "label": "",
+    "preconditions": "Settings dialog open",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with settings-accents-switch on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-greek-switch",
+    "role": "input",
+    "label": "",
+    "preconditions": "Settings dialog open",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with settings-greek-switch on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-sideswap-switch",
+    "role": "input",
+    "label": "",
+    "preconditions": "Settings dialog open",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with settings-sideswap-switch on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-theme-dark-btn",
+    "role": "button",
+    "label": "Dark",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-theme-dark-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-theme-light-btn",
+    "role": "button",
+    "label": "Light",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-theme-light-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-theme-system-btn",
+    "role": "button",
+    "label": "System",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-theme-system-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-reset-init-btn",
+    "role": "button",
+    "label": "Reset...",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-reset-init-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-done-btn",
+    "role": "button",
+    "label": "Done",
+    "preconditions": "Settings dialog open",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-done-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-reset-confirm-btn",
+    "role": "button",
+    "label": "Confirm",
+    "preconditions": "Settings reset confirmation state",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-reset-confirm-btn on screen settings-modal"
+  },
+  {
+    "screen": "settings-modal",
+    "testId": "settings-reset-cancel-btn",
+    "role": "button",
+    "label": "Cancel",
+    "preconditions": "Settings reset confirmation state",
+    "inputs": [],
+    "expectedEffect": "Interacts with settings-reset-cancel-btn on screen settings-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-selector-close-btn",
+    "role": "button",
+    "label": "Close dialog",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-selector-close-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-selector-item-0",
+    "role": "option",
+    "label": "Sample Deck\nGENERAL\n6 cards",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-selector-item-0 on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-selector-cancel-btn",
+    "role": "button",
+    "label": "Close",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-selector-cancel-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-selector-new-btn",
+    "role": "button",
+    "label": "+ New Deck",
+    "preconditions": "Deck selector modal open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-selector-new-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-create-name-input",
+    "role": "input",
+    "label": "e.g. Physics 101",
+    "preconditions": "Deck creation form open",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with set-create-name-input on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-create-category-input",
+    "role": "input",
+    "label": "e.g. Science",
+    "preconditions": "Deck creation form open",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with set-create-category-input on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-create-back-btn",
+    "role": "button",
+    "label": "Back",
+    "preconditions": "Deck creation form open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-create-back-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "set-selector-modal",
+    "testId": "set-create-submit-btn",
+    "role": "button",
+    "label": "Create Deck",
+    "preconditions": "Deck creation form open",
+    "inputs": [],
+    "expectedEffect": "Interacts with set-create-submit-btn on screen set-selector-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "nav-decks-btn",
+    "role": "button",
+    "label": "Select Deck",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-decks-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "nav-add-card-btn",
+    "role": "button",
+    "label": "Add Card",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-add-card-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "nav-settings-btn",
+    "role": "button",
+    "label": "Settings",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with nav-settings-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "mode-tab-learn",
+    "role": "tab",
+    "label": "Learn",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-learn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "mode-tab-study",
+    "role": "tab",
+    "label": "Cards",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-study on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "mode-tab-analytics",
+    "role": "tab",
+    "label": "Analytics",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with mode-tab-analytics on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-tab-single-btn",
+    "role": "button",
+    "label": "Single Card",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-tab-single-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-tab-bulk-btn",
+    "role": "button",
+    "label": "Bulk Paste",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-tab-bulk-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-close-btn",
+    "role": "button",
+    "label": "Close dialog",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-close-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-title-input",
+    "role": "input",
+    "label": "e.g. Ideal Gas Law",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-title-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-category-input",
+    "role": "input",
+    "label": "e.g. Thermodynamics",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-category-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-prompt-input",
+    "role": "textarea",
+    "label": "State the equation relating pressure, volume, mole",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-prompt-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-cat-0",
+    "role": "button",
+    "label": "Basics",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-cat-0 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-cat-1",
+    "role": "button",
+    "label": "Calculus & Vectors",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-cat-1 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-cat-2",
+    "role": "button",
+    "label": "Greek & Symbols",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-cat-2 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-cat-3",
+    "role": "button",
+    "label": "Matrices",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-cat-3 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-0",
+    "role": "button",
+    "label": "a/b",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-0 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-1",
+    "role": "button",
+    "label": "xⁿ",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-1 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-2",
+    "role": "button",
+    "label": "xₙ",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-2 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-3",
+    "role": "button",
+    "label": "√x",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-3 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-4",
+    "role": "button",
+    "label": "·",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-4 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-5",
+    "role": "button",
+    "label": "×",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-5 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-6",
+    "role": "button",
+    "label": "±",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-6 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-7",
+    "role": "button",
+    "label": "≈",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-7 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-8",
+    "role": "button",
+    "label": "≤",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-8 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-9",
+    "role": "button",
+    "label": "≥",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-9 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-toolbar-item-10",
+    "role": "button",
+    "label": "( )",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-toolbar-item-10 on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-answer-input",
+    "role": "textarea",
+    "label": "e.g. PV = nRT or \\frac{1}{2}mv^2",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-answer-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-hint-input",
+    "role": "input",
+    "label": "Optional progressive hint",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-hint-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-explanation-input",
+    "role": "input",
+    "label": "Shown on the back after answering",
+    "preconditions": "Single card creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-explanation-input on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-cancel-btn",
+    "role": "button",
+    "label": "Cancel",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-cancel-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-save-another-btn",
+    "role": "button",
+    "label": "Save & Add Another",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-save-another-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-save-btn",
+    "role": "button",
+    "label": "Save Card",
+    "preconditions": "Single card creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-save-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-bulk-delimiter-select",
+    "role": "select",
+    "label": "Tab (Default Quizlet / Spreadsheet paste)\nComma (,",
+    "preconditions": "Bulk paste creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-bulk-delimiter-select on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-bulk-textarea",
+    "role": "textarea",
+    "label": "Ideal Gas Law\tPV = nRT\nKinetic Energy\tE = \\frac{1}",
+    "preconditions": "Bulk paste creator mode",
+    "inputs": [
+      "text",
+      "formula"
+    ],
+    "expectedEffect": "Interacts with creator-bulk-textarea on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-bulk-cancel-btn",
+    "role": "button",
+    "label": "Cancel",
+    "preconditions": "Bulk paste creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-bulk-cancel-btn on screen card-creator-modal"
+  },
+  {
+    "screen": "card-creator-modal",
+    "testId": "creator-bulk-submit-btn",
+    "role": "button",
+    "label": "Import Cards",
+    "preconditions": "Bulk paste creator mode",
+    "inputs": [],
+    "expectedEffect": "Interacts with creator-bulk-submit-btn on screen card-creator-modal"
+  }
+]

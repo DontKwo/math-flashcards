@@ -31,10 +31,11 @@ const SYMBOLS: MathSymbolButton[] = [
 export const VirtualMathToolbar: React.FC<VirtualMathToolbarProps> = ({ onInsert }) => {
   return (
     <div className="math-toolbar" role="toolbar" aria-label="Math Symbols">
-      {SYMBOLS.map((s) => (
+      {SYMBOLS.map((s, idx) => (
         <button
           key={s.label}
           type="button"
+          data-testid={`math-toolbar-btn-${idx}`}
           className="toolbar-btn"
           title={s.title}
           onClick={() => onInsert(s.snippet)}

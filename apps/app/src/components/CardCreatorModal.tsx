@@ -2,6 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import katex from 'katex';
 import { MathDisplay } from './MathDisplay.tsx';
 import type { FlashcardItem } from '../data/sample-deck.ts';
+import type { TermDefinition } from '@formulaflash/core';
+import {
+  detectFormulaTerms,
+  diffTerms,
+  getSuggestionsForSymbol,
+  normalizeSymbolKey,
+} from '@formulaflash/core';
 
 export interface CardCreatorModalProps {
   onSave: (card: FlashcardItem) => void;
@@ -10,6 +17,7 @@ export interface CardCreatorModalProps {
   existingCards?: FlashcardItem[];
   onBulkAdd?: (cards: FlashcardItem[]) => void;
   onDeleteCard?: (cardId: string) => void;
+  onApplyTermToSetGlossary?: (term: TermDefinition) => void;
 }
 
 interface MathToolbarCategory {
@@ -88,6 +96,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
   onClose,
   initialCard,
   onBulkAdd,
+  onApplyTermToSetGlossary,
 }) => {
   const [activeTab, setActiveTab] = useState<'single' | 'bulk'>('single');
   const [activeCategory, setActiveCategory] = useState<string>('Basics');
@@ -99,6 +108,8 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
   const [latexAnswer, setLatexAnswer] = useState(initialCard?.latexAnswer || '');
   const [hint, setHint] = useState(initialCard?.hint || '');
   const [explanation, setExplanation] = useState(initialCard?.explanation || '');
+  const [terms, setTerms] = useState<TermDefinition[]>(initialCard?.terms || []);
+  const [manualSymbolInput, setManualSymbolInput] = useState('');
 
   // Bulk add state
   const [bulkText, setBulkText] = useState('');
@@ -120,6 +131,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
           if (parsed.latexAnswer) setLatexAnswer(parsed.latexAnswer);
           if (parsed.hint) setHint(parsed.hint);
           if (parsed.explanation) setExplanation(parsed.explanation);
+          if (parsed.terms) setTerms(parsed.terms);
         } catch {
           // Ignore draft parse errors
         }
@@ -132,10 +144,10 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
     if (!initialCard && (title || prompt || latexAnswer)) {
       localStorage.setItem(
         DRAFT_KEY,
-        JSON.stringify({ title, category, prompt, latexAnswer, hint, explanation })
+        JSON.stringify({ title, category, prompt, latexAnswer, hint, explanation, terms })
       );
     }
-  }, [title, category, prompt, latexAnswer, hint, explanation, initialCard]);
+  }, [title, category, prompt, latexAnswer, hint, explanation, terms, initialCard]);
 
   // Validate KaTeX syntax live
   useEffect(() => {
@@ -148,7 +160,6 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
       setValidationError(null);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      // Clean up KaTeX prefix for user friendliness
       const friendly = msg.replace('KaTeX parse error: ', '');
       setValidationError(friendly);
     }
@@ -177,12 +188,70 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
     const nextVal = before + snippet + after;
     setLatexAnswer(nextVal);
 
-    // Place caret right after inserted snippet
     setTimeout(() => {
       textarea.focus();
       const newPos = start + snippet.length;
       textarea.setSelectionRange(newPos, newPos);
     }, 10);
+  };
+
+  // Term detection & diffing
+  const diff = diffTerms(latexAnswer, terms);
+  const definedCount = terms.filter((t) => t.definition && t.definition.trim().length > 0).length;
+
+  const handleDetectTerms = (): void => {
+    const detected = detectFormulaTerms(latexAnswer);
+    const nextTerms: TermDefinition[] = [...terms];
+
+    for (const sym of detected) {
+      const k = normalizeSymbolKey(sym);
+      if (!nextTerms.some((t) => normalizeSymbolKey(t.symbol) === k)) {
+        const suggestions = getSuggestionsForSymbol(sym);
+        const best = suggestions[0];
+        nextTerms.push({
+          symbol: sym,
+          name: best?.name || '',
+          definition: best?.definition || '',
+          units: best?.units || '',
+        });
+      }
+    }
+    setTerms(nextTerms);
+  };
+
+  const handleAddManualTerm = (): void => {
+    const sym = manualSymbolInput.trim();
+    if (!sym) return;
+    const k = normalizeSymbolKey(sym);
+    if (!terms.some((t) => normalizeSymbolKey(t.symbol) === k)) {
+      setTerms([...terms, { symbol: sym, name: '', definition: '', units: '' }]);
+      setManualSymbolInput('');
+    }
+  };
+
+  const handleRemoveTerm = (index: number): void => {
+    setTerms(terms.filter((_, i) => i !== index));
+  };
+
+  const handleUpdateTerm = (index: number, updated: TermDefinition): void => {
+    const next = [...terms];
+    next[index] = updated;
+    setTerms(next);
+  };
+
+  const handleRemoveStaleTerms = (): void => {
+    const staleKeys = new Set(diff.stale.map((s) => normalizeSymbolKey(s.symbol)));
+    setTerms(terms.filter((t) => !staleKeys.has(normalizeSymbolKey(t.symbol))));
+  };
+
+  const handleMoveTerm = (index: number, direction: 'up' | 'down'): void => {
+    const newIdx = direction === 'up' ? index - 1 : index + 1;
+    if (newIdx < 0 || newIdx >= terms.length) return;
+    const next = [...terms];
+    const temp = next[index];
+    next[index] = next[newIdx];
+    next[newIdx] = temp;
+    setTerms(next);
   };
 
   const handleSave = (addAnother = false): void => {
@@ -196,18 +265,19 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
       latexAnswer: latexAnswer.trim(),
       hint: hint.trim(),
       explanation: explanation.trim(),
+      terms: terms.length > 0 ? terms : undefined,
     };
 
     onSave(newCard);
     localStorage.removeItem(DRAFT_KEY);
 
     if (addAnother) {
-      // Clear fields and focus Title for rapid entry
       setTitle('');
       setPrompt('');
       setLatexAnswer('');
       setHint('');
       setExplanation('');
+      setTerms([]);
       const titleInput = document.getElementById('card-title');
       if (titleInput) titleInput.focus();
     } else {
@@ -251,7 +321,7 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="modal-content" style={{ maxWidth: '640px' }}>
+      <div className="modal-content" style={{ maxWidth: '720px', width: '95vw', maxHeight: '92vh', overflowY: 'auto' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <h2 id="card-creator-dialog-title" className="modal-title">
@@ -399,6 +469,202 @@ export const CardCreatorModal: React.FC<CardCreatorModalProps> = ({
                 ) : (
                   <span className="preview-placeholder">Live rendered equation preview appears here</span>
                 )}
+              </div>
+            </div>
+
+            {/* Terms Section */}
+            <div className="settings-section" style={{ border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <div>
+                  <span className="settings-section-title" style={{ fontSize: '15px' }}>Term Definitions</span>
+                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                    {terms.length > 0 ? `${definedCount} of ${terms.length} terms defined` : 'Define variables and parameters in this formula'}
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  data-testid="creator-detect-terms-btn"
+                  className="btn-secondary"
+                  style={{ minHeight: '34px', height: '34px', fontSize: '13px', padding: '0 12px' }}
+                  onClick={handleDetectTerms}
+                  disabled={!latexAnswer.trim()}
+                >
+                  Detect Terms
+                </button>
+              </div>
+
+              {/* Stale Terms Notice */}
+              {diff.stale.length > 0 && (
+                <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--error)', padding: '8px 12px', borderRadius: 'var(--radius-sm)', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '12px', color: 'var(--error)' }}>
+                    ⚠️ {diff.stale.length} term(s) no longer in formula: {diff.stale.map((s) => s.symbol).join(', ')}
+                  </span>
+                  <button
+                    type="button"
+                    data-testid="creator-remove-stale-btn"
+                    className="btn-secondary"
+                    style={{ minHeight: '26px', height: '26px', fontSize: '11px', padding: '0 8px' }}
+                    onClick={handleRemoveStaleTerms}
+                  >
+                    Remove Stale
+                  </button>
+                </div>
+              )}
+
+              {/* Term Rows */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '35vh', overflowY: 'auto' }}>
+                {terms.map((term, idx) => {
+                  const isDefined = !!term.definition?.trim();
+                  const suggestions = getSuggestionsForSymbol(term.symbol);
+
+                  return (
+                    <div
+                      key={idx}
+                      data-testid={`creator-term-row-${idx}`}
+                      style={{
+                        padding: '10px',
+                        borderRadius: 'var(--radius-sm)',
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: isDefined ? '1px solid var(--border)' : '1px solid rgba(239, 68, 68, 0.4)',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ fontSize: '18px', fontWeight: 600, minWidth: '36px' }}>
+                            <MathDisplay latex={term.symbol} display={false} />
+                          </span>
+                          {!isDefined && (
+                            <span className="deck-tag" style={{ backgroundColor: 'rgba(239, 68, 68, 0.15)', color: 'var(--error)', fontSize: '11px' }}>
+                              Undefined
+                            </span>
+                          )}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                          <button
+                            type="button"
+                            data-testid={`creator-term-up-${idx}`}
+                            className="toolbar-btn"
+                            disabled={idx === 0}
+                            onClick={() => handleMoveTerm(idx, 'up')}
+                            title="Move up"
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            data-testid={`creator-term-down-${idx}`}
+                            className="toolbar-btn"
+                            disabled={idx === terms.length - 1}
+                            onClick={() => handleMoveTerm(idx, 'down')}
+                            title="Move down"
+                          >
+                            ↓
+                          </button>
+                          {onApplyTermToSetGlossary && (
+                            <button
+                              type="button"
+                              data-testid={`creator-term-apply-glossary-${idx}`}
+                              className="toolbar-btn"
+                              style={{ fontSize: '11px', padding: '0 8px' }}
+                              title="Add definition to set glossary"
+                              onClick={() => onApplyTermToSetGlossary(term)}
+                            >
+                              Apply to Deck
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            data-testid={`creator-term-delete-${idx}`}
+                            className="toolbar-btn"
+                            style={{ color: 'var(--error)' }}
+                            onClick={() => handleRemoveTerm(idx)}
+                            title="Remove term"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Suggestions Chips */}
+                      {suggestions.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Suggestions:</span>
+                          {suggestions.map((sugg, sIdx) => (
+                            <button
+                              key={sIdx}
+                              type="button"
+                              data-testid={`creator-term-${idx}-suggestion-${sIdx}`}
+                              className="toolbar-btn"
+                              style={{ fontSize: '11px', padding: '2px 6px', height: 'auto' }}
+                              onClick={() =>
+                                handleUpdateTerm(idx, {
+                                  ...term,
+                                  name: sugg.name,
+                                  definition: sugg.definition,
+                                  units: sugg.units,
+                                })
+                              }
+                            >
+                              {sugg.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '8px', marginBottom: '6px' }}>
+                        <input
+                          type="text"
+                          data-testid={`creator-term-name-${idx}`}
+                          value={term.name || ''}
+                          onChange={(e) => handleUpdateTerm(idx, { ...term, name: e.target.value })}
+                          placeholder="Short name (e.g. Kinematic viscosity)"
+                          style={{ fontSize: '13px', padding: '6px 8px' }}
+                        />
+                        <input
+                          type="text"
+                          data-testid={`creator-term-units-${idx}`}
+                          value={term.units || ''}
+                          onChange={(e) => handleUpdateTerm(idx, { ...term, units: e.target.value })}
+                          placeholder="Units (e.g. m^2/s)"
+                          style={{ fontSize: '13px', padding: '6px 8px' }}
+                        />
+                      </div>
+
+                      <textarea
+                        data-testid={`creator-term-definition-${idx}`}
+                        value={term.definition || ''}
+                        onChange={(e) => handleUpdateTerm(idx, { ...term, definition: e.target.value })}
+                        placeholder="Detailed definition of this quantity..."
+                        rows={2}
+                        style={{ fontSize: '13px', padding: '6px 8px' }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Add manual term input */}
+              <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                <input
+                  type="text"
+                  data-testid="creator-manual-symbol-input"
+                  value={manualSymbolInput}
+                  onChange={(e) => setManualSymbolInput(e.target.value)}
+                  placeholder="Add manual symbol (e.g. \nabla or \partial)"
+                  style={{ flex: 1, fontSize: '13px' }}
+                />
+                <button
+                  type="button"
+                  data-testid="creator-add-manual-term-btn"
+                  className="btn-secondary"
+                  style={{ minHeight: '34px', height: '34px', fontSize: '13px', padding: '0 12px' }}
+                  onClick={handleAddManualTerm}
+                  disabled={!manualSymbolInput.trim()}
+                >
+                  + Add Term
+                </button>
               </div>
             </div>
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { normalizeSymbolKey, sanitizePlainText } from './term-utils.js';
 
 // ---------- Rich content ----------
 export const SegmentSchema = z.discriminatedUnion('t', [
@@ -14,6 +15,21 @@ export type Segment = z.infer<typeof SegmentSchema>;
 export const RichContentSchema = z.array(SegmentSchema);
 export type RichContent = z.infer<typeof RichContentSchema>;
 
+// ---------- Term definition ----------
+export const TermDefinitionSchema = z.object({
+  symbol: z.string().min(1).max(256),
+  name: z.string().max(256).optional(),
+  definition: z.string().max(4096).optional(),
+  units: z.string().max(128).optional(),
+  note: z.string().max(2048).optional(),
+});
+
+export type TermDefinition = z.infer<typeof TermDefinitionSchema>;
+
+// Set glossary mapping normalized symbol key to TermDefinition
+export const SetGlossarySchema = z.record(TermDefinitionSchema);
+export type SetGlossary = z.infer<typeof SetGlossarySchema>;
+
 // ---------- Sets / cards ----------
 export const CardSetSchema = z.object({
   id: z.string(),
@@ -25,6 +41,7 @@ export const CardSetSchema = z.object({
   updatedAt: z.number(),
   settings: z.record(z.unknown()), // per-set overrides
   defaultCardType: z.string(),
+  glossary: SetGlossarySchema.optional(),
   extra: z.record(z.unknown()),
 });
 export type CardSet = z.infer<typeof CardSetSchema>;
@@ -54,6 +71,7 @@ export const CardSchema = z.object({
   tags: z.array(z.string()),
   starred: z.boolean(),
   media: z.array(z.string()),
+  terms: z.array(TermDefinitionSchema).optional(),
   extra: z.record(z.unknown()),
   createdAt: z.number(),
   updatedAt: z.number(),
@@ -110,3 +128,53 @@ export const StudySessionSchema = z.object({
   snapshot: z.unknown().optional(),
 });
 export type StudySession = z.infer<typeof StudySessionSchema>;
+
+/**
+ * Validates and sanitizes a term definition object.
+ */
+export function sanitizeTermDefinition(term: TermDefinition): TermDefinition {
+  return {
+    symbol: term.symbol.trim(),
+    name: sanitizePlainText(term.name),
+    definition: sanitizePlainText(term.definition),
+    units: sanitizePlainText(term.units),
+    note: sanitizePlainText(term.note),
+  };
+}
+
+/**
+ * Resolves a term for a given symbol:
+ * 1. Card's own terms
+ * 2. Set glossary
+ * 3. undefined
+ */
+export function resolveCardTerm(
+  symbol: string,
+  cardTerms?: TermDefinition[],
+  setGlossary?: Record<string, TermDefinition>
+): TermDefinition | undefined {
+  if (!symbol) return undefined;
+  const targetKey = normalizeSymbolKey(symbol);
+
+  // 1. Check card-level terms first
+  if (cardTerms && cardTerms.length > 0) {
+    const foundCardTerm = cardTerms.find(
+      (t) => normalizeSymbolKey(t.symbol) === targetKey
+    );
+    if (foundCardTerm) {
+      return foundCardTerm;
+    }
+  }
+
+  // 2. Check set glossary next
+  if (setGlossary) {
+    for (const [key, term] of Object.entries(setGlossary)) {
+      if (normalizeSymbolKey(key) === targetKey || normalizeSymbolKey(term.symbol) === targetKey) {
+        return term;
+      }
+    }
+  }
+
+  // 3. Fallback to undefined
+  return undefined;
+}

@@ -1,14 +1,23 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { registry, type Verdict } from '@formulaflash/core';
+import { registry, type Verdict, type TermDefinition } from '@formulaflash/core';
 import { MathDisplay } from './components/MathDisplay.tsx';
 import { VirtualMathToolbar } from './components/VirtualMathToolbar.tsx';
 import { MathLiveField } from './components/MathLiveField.tsx';
 import { FlashcardViewer } from './components/FlashcardViewer.tsx';
 import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
-import { SettingsModal, loadSettings, applyTheme, type AppSettings } from './components/SettingsModal.tsx';
+import { SettingsModal, loadSettings, applyTheme, type AppSettings, type TermDefinitionsSetting } from './components/SettingsModal.tsx';
+import { SetGlossaryModal } from './components/SetGlossaryModal.tsx';
+import { InteractiveEquation } from './components/InteractiveEquation.tsx';
 import { AnalyticsView } from './components/AnalyticsView.tsx';
-import { loadSets, saveSet, saveCard, deleteCard, type FlashcardSet } from './data/storage.ts';
+import {
+  loadSets,
+  saveSet,
+  saveCard,
+  deleteCard,
+  saveSetGlossary,
+  type FlashcardSet,
+} from './data/storage.ts';
 import type { FlashcardItem } from './data/sample-deck.ts';
 
 type AppMode = 'study' | 'learn' | 'analytics';
@@ -27,6 +36,7 @@ export const App: React.FC = () => {
   const [userAnswer, setUserAnswer] = useState('');
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const [showHint, setShowHint] = useState(false);
+  const [showLearnTermsHint, setShowLearnTermsHint] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
   const [toast, setToast] = useState<ToastState | null>(null);
 
@@ -36,10 +46,14 @@ export const App: React.FC = () => {
     return loaded;
   });
 
+  // Per-session override for term definitions mode
+  const [sessionTermsMode, setSessionTermsMode] = useState<TermDefinitionsSetting | null>(null);
+
   const [showCardCreator, setShowCardCreator] = useState(false);
   const [editingCard, setEditingCard] = useState<FlashcardItem | undefined>(undefined);
   const [showSetSelector, setShowSetSelector] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showGlossaryModal, setShowGlossaryModal] = useState(false);
 
   useEffect(() => {
     applyTheme(settings.theme);
@@ -48,6 +62,9 @@ export const App: React.FC = () => {
   const activeSet = sets.find((s) => s.id === activeSetId) || sets[0];
   const deck = activeSet?.cards || [];
   const currentCard = deck[currentIndex];
+
+  // Resolve active term definitions mode: session override > settings
+  const effectiveTermsMode: TermDefinitionsSetting = sessionTermsMode || settings.termDefinitionsMode;
 
   const showToastNotification = useCallback((message: string, onUndo?: () => void): void => {
     setToast({ message, onUndo });
@@ -62,6 +79,7 @@ export const App: React.FC = () => {
     setUserAnswer('');
     setVerdict(null);
     setShowHint(false);
+    setShowLearnTermsHint(false);
     setIsFlipped(false);
   }, [deck.length]);
 
@@ -71,6 +89,7 @@ export const App: React.FC = () => {
     setUserAnswer('');
     setVerdict(null);
     setShowHint(false);
+    setShowLearnTermsHint(false);
     setIsFlipped(false);
   }, [deck.length]);
 
@@ -110,6 +129,7 @@ export const App: React.FC = () => {
       name,
       category,
       cards: [],
+      glossary: {},
     };
     saveSet(newSet);
     const updated = loadSets();
@@ -148,6 +168,41 @@ export const App: React.FC = () => {
     });
   };
 
+  const handleSaveSetGlossary = (newGlossary: Record<string, TermDefinition>): void => {
+    saveSetGlossary(activeSetId, newGlossary);
+    setSets(loadSets());
+  };
+
+  const handleApplyTermToSetGlossary = (term: TermDefinition): void => {
+    const currentGlossary = activeSet.glossary || {};
+    const updatedGlossary = { ...currentGlossary, [term.symbol]: term };
+    handleSaveSetGlossary(updatedGlossary);
+    showToastNotification(`Added "${term.symbol}" to deck glossary`);
+  };
+
+  const handleApplyGlossaryDefinitionToCards = (symbol: string, term: TermDefinition): void => {
+    const currentSets = loadSets();
+    const setIdx = currentSets.findIndex((s) => s.id === activeSetId);
+    if (setIdx >= 0) {
+      for (const card of currentSets[setIdx].cards) {
+        if (!card.terms) card.terms = [];
+        const existing = card.terms.find((t) => t.symbol === symbol);
+        if (!existing || !existing.definition) {
+          if (existing) {
+            existing.name = term.name;
+            existing.definition = term.definition;
+            existing.units = term.units;
+          } else {
+            card.terms.push(term);
+          }
+        }
+      }
+      saveSet(currentSets[setIdx]);
+      setSets(loadSets());
+      showToastNotification(`Copied definition of "${symbol}" to cards`);
+    }
+  };
+
   const progressPercent = deck.length > 0 ? ((currentIndex + 1) / deck.length) * 100 : 0;
 
   return (
@@ -166,6 +221,15 @@ export const App: React.FC = () => {
             aria-label="Select Deck"
           >
             Decks
+          </button>
+          <button
+            type="button"
+            data-testid="nav-glossary-btn"
+            className="header-btn"
+            onClick={() => setShowGlossaryModal(true)}
+            aria-label="Deck Glossary"
+          >
+            Glossary
           </button>
           <button
             type="button"
@@ -252,6 +316,23 @@ export const App: React.FC = () => {
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <span className="deck-tag">{activeSet?.name}</span>
                 <span className="deck-tag">{currentCard.category}</span>
+                {/* Quick session toggle for terms mode */}
+                <button
+                  type="button"
+                  data-testid="session-terms-mode-toggle"
+                  className="toolbar-btn"
+                  style={{ fontSize: '11px', padding: '2px 8px', height: '26px' }}
+                  title="Toggle term definitions mode for this session"
+                  onClick={() => {
+                    const modes: TermDefinitionsSetting[] = ['on-request', 'after-answer', 'hint-before-answer', 'off'];
+                    const currentIdx = modes.indexOf(effectiveTermsMode);
+                    const nextMode = modes[(currentIdx + 1) % modes.length];
+                    setSessionTermsMode(nextMode);
+                    showToastNotification(`Terms mode: ${nextMode}`);
+                  }}
+                >
+                  Terms: {effectiveTermsMode}
+                </button>
               </div>
               <span className="card-counter">
                 Card {currentIndex + 1} of {deck.length}
@@ -286,6 +367,12 @@ export const App: React.FC = () => {
                   card={currentCard}
                   isFlipped={isFlipped}
                   onFlip={() => setIsFlipped(!isFlipped)}
+                  setGlossary={activeSet?.glossary}
+                  termDefinitionsMode={effectiveTermsMode}
+                  onEditTerms={() => {
+                    setEditingCard(currentCard);
+                    setShowCardCreator(true);
+                  }}
                 />
                 <div className="nav-controls" style={{ marginTop: '16px' }}>
                   <button
@@ -347,6 +434,29 @@ export const App: React.FC = () => {
                   <div className="card-body" style={{ alignItems: 'flex-start', textAlign: 'left' }}>
                     <h2 className="card-title">{currentCard.title}</h2>
                     <p className="card-prompt">{currentCard.prompt}</p>
+
+                    {/* Hint before answering / on-request peek for terms */}
+                    {effectiveTermsMode === 'hint-before-answer' && (
+                      <div style={{ marginTop: '12px', width: '100%' }}>
+                        <button
+                          type="button"
+                          data-testid="learn-terms-hint-btn"
+                          className="toolbar-btn"
+                          style={{ fontSize: '12px', padding: '4px 8px', marginBottom: '6px' }}
+                          onClick={() => setShowLearnTermsHint(!showLearnTermsHint)}
+                        >
+                          {showLearnTermsHint ? 'Hide Terms Hint' : '💡 Peek Term Names & Definitions'}
+                        </button>
+                        {showLearnTermsHint && (
+                          <InteractiveEquation
+                            latex={currentCard.latexAnswer}
+                            cardTerms={currentCard.terms}
+                            setGlossary={activeSet?.glossary}
+                            hideSymbolsInitially={true}
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
                 </article>
 
@@ -403,7 +513,20 @@ export const App: React.FC = () => {
                         <div className="verdict-compare">
                           <div className="verdict-compare-box">
                             <strong>Expected Answer:</strong>
-                            <MathDisplay latex={currentCard.latexAnswer} display={false} />
+                            {effectiveTermsMode !== 'off' ? (
+                              <InteractiveEquation
+                                latex={currentCard.latexAnswer}
+                                cardTerms={currentCard.terms}
+                                setGlossary={activeSet?.glossary}
+                                autoShowTerms={effectiveTermsMode === 'after-answer'}
+                                onEditCardTerms={() => {
+                                  setEditingCard(currentCard);
+                                  setShowCardCreator(true);
+                                }}
+                              />
+                            ) : (
+                              <MathDisplay latex={currentCard.latexAnswer} display={false} />
+                            )}
                           </div>
                           {userAnswer && (
                             <div className="verdict-compare-box">
@@ -524,6 +647,7 @@ export const App: React.FC = () => {
           initialCard={editingCard}
           onSave={handleSaveCard}
           onBulkAdd={handleBulkAddCards}
+          onApplyTermToSetGlossary={handleApplyTermToSetGlossary}
           onClose={() => {
             setShowCardCreator(false);
             setEditingCard(undefined);
@@ -541,6 +665,15 @@ export const App: React.FC = () => {
           }}
           onCreateSet={handleCreateSet}
           onClose={() => setShowSetSelector(false)}
+        />
+      )}
+
+      {showGlossaryModal && (
+        <SetGlossaryModal
+          activeSet={activeSet}
+          onSaveGlossary={handleSaveSetGlossary}
+          onApplyDefinitionToCards={handleApplyGlossaryDefinitionToCards}
+          onClose={() => setShowGlossaryModal(false)}
         />
       )}
 

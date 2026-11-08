@@ -1,11 +1,13 @@
 import { loadCfdCompleteDeck } from './cfd-loader';
-import type { FlashcardItem } from './sample-deck';
+import { SAMPLE_DECK, CFD_GLOSSARY, type FlashcardItem } from './sample-deck';
+import type { TermDefinition } from '@formulaflash/core';
 
 export interface FlashcardSet {
   id: string;
   name: string;
   category: string;
   cards: FlashcardItem[];
+  glossary?: Record<string, TermDefinition>;
   isDefault?: boolean;
 }
 
@@ -98,6 +100,15 @@ export function deleteCard(setId: string, cardId: string): void {
   const setIndex = sets.findIndex((s) => s.id === setId);
   if (setIndex >= 0) {
     sets[setIndex].cards = sets[setIndex].cards.filter((c) => c.id !== cardId);
+    localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
+  }
+}
+
+export function saveSetGlossary(setId: string, glossary: Record<string, TermDefinition>): void {
+  const sets = loadSets();
+  const setIndex = sets.findIndex((s) => s.id === setId);
+  if (setIndex >= 0) {
+    sets[setIndex].glossary = glossary;
     localStorage.setItem(STORAGE_KEY_SETS, JSON.stringify(sets));
   }
 }

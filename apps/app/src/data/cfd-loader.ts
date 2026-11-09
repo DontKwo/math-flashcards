@@ -13,6 +13,7 @@ export function loadCfdCompleteDeck(): FlashcardItem[] {
       latexAnswer: card.latexAnswer,
       hint: card.hint,
       explanation: card.explanation,
+      terms: card.terms,
     }));
   }
   return cfdDeckCache;

@@ -11,25 +11,9 @@ export interface FlashcardItem {
   terms?: TermDefinition[];
 }
 
-export const CFD_GLOSSARY: Record<string, TermDefinition> = {
-  '\\rho': { symbol: '\\rho', name: 'Fluid density', definition: 'Mass per unit volume of fluid.', units: 'kg/m^3' },
-  'p': { symbol: 'p', name: 'Static pressure', definition: 'Normal compressive force per unit area in the fluid.', units: 'Pa' },
-  '\\nu': { symbol: '\\nu', name: 'Kinematic viscosity', definition: 'Ratio of dynamic viscosity to fluid density (momentum diffusivity).', units: 'm^2/s' },
-  '\\mu': { symbol: '\\mu', name: 'Dynamic viscosity', definition: 'Fluid measure of shear stress resistance.', units: 'Pa*s' },
-  '\\mathbf{u}': { symbol: '\\mathbf{u}', name: 'Velocity vector', definition: 'Flow velocity vector field.', units: 'm/s' },
-  'u': { symbol: 'u', name: 'x-velocity component', definition: 'Streamwise or x-component of velocity.', units: 'm/s' },
-  'v': { symbol: 'v', name: 'y-velocity component', definition: 'Transverse or y-component of velocity.', units: 'm/s' },
-  'w': { symbol: 'w', name: 'z-velocity component', definition: 'Spanwise or z-component of velocity.', units: 'm/s' },
-  't': { symbol: 't', name: 'Time', definition: 'Temporal flow coordinate.', units: 's' },
-  'T': { symbol: 'T', name: 'Temperature', definition: 'Thermodynamic absolute temperature.', units: 'K' },
-  'k': { symbol: 'k', name: 'Turbulent kinetic energy', definition: 'Kinetic energy per unit mass in turbulent fluctuations.', units: 'm^2/s^2' },
-  '\\epsilon': { symbol: '\\epsilon', name: 'Turbulence dissipation rate', definition: 'Rate of conversion of turbulent kinetic energy into internal thermal energy.', units: 'm^2/s^3' },
-  '\\omega': { symbol: '\\omega', name: 'Specific dissipation rate', definition: 'Rate of turbulence energy dissipation per unit kinetic energy.', units: '1/s' },
-  'Re': { symbol: 'Re', name: 'Reynolds number', definition: 'Ratio of inertial forces to viscous forces.', units: 'dimensionless' },
-  'Pr': { symbol: 'Pr', name: 'Prandtl number', definition: 'Ratio of momentum diffusivity to thermal diffusivity.', units: 'dimensionless' },
-  'Ma': { symbol: 'Ma', name: 'Mach number', definition: 'Ratio of flow speed to local speed of sound.', units: 'dimensionless' },
-  'Kn': { symbol: 'Kn', name: 'Knudsen number', definition: 'Ratio of molecular mean free path to flow characteristic scale.', units: 'dimensionless' },
-};
+import { CFD_GLOSSARY as CORE_CFD_GLOSSARY } from '@formulaflash/core';
+
+export const CFD_GLOSSARY: Record<string, TermDefinition> = CORE_CFD_GLOSSARY;
 
 export const SAMPLE_DECK: FlashcardItem[] = [
   // 1. Incompressible Navier-Stokes Momentum Equation

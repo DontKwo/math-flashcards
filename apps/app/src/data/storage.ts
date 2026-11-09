@@ -1,5 +1,5 @@
 import { loadCfdCompleteDeck } from './cfd-loader';
-import type { FlashcardItem } from './sample-deck';
+import { CFD_GLOSSARY, type FlashcardItem } from './sample-deck';
 import type { TermDefinition } from '@formulaflash/core';
 
 export interface FlashcardSet {
@@ -23,6 +23,7 @@ export function createCfdDefaultSet(): FlashcardSet {
     name: 'CFD: Complete Reference',
     category: 'Fluid Dynamics',
     cards: loadCfdCompleteDeck(),
+    glossary: CFD_GLOSSARY,
     isDefault: true,
   };
 }

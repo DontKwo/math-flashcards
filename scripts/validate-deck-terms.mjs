@@ -112,14 +112,16 @@ function resolveCardTerm(symbol, cardTerms, setGlossary) {
   return undefined;
 }
 
+const glossaryTsPath = resolve(__dirname, '../packages/core/defaultSets/cfd/glossary.ts');
+const glossaryContent = readFileSync(glossaryTsPath, 'utf-8');
+const glossaryMatch = glossaryContent.match(/export const CFD_GLOSSARY:\s*Record<string,\s*TermDefinition>\s*=\s*(\{[\s\S]*?\n\};)/);
+
 const sampleDeckTsPath = resolve(__dirname, '../apps/app/src/data/sample-deck.ts');
 const fileContent = readFileSync(sampleDeckTsPath, 'utf-8');
-
-const glossaryMatch = fileContent.match(/export const CFD_GLOSSARY:\s*Record<string,\s*TermDefinition>\s*=\s*(\{[\s\S]*?\n\};)/);
 const deckMatch = fileContent.match(/export const SAMPLE_DECK:\s*FlashcardItem\[\]\s*=\s*(\[[\s\S]*?\n\];)/);
 
 if (!glossaryMatch || !deckMatch) {
-  console.error('Could not locate CFD_GLOSSARY or SAMPLE_DECK in sample-deck.ts');
+  console.error('Could not locate CFD_GLOSSARY or SAMPLE_DECK');
   process.exit(1);
 }
 

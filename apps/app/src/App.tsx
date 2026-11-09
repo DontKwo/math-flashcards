@@ -8,6 +8,7 @@ import { CardCreatorModal } from './components/CardCreatorModal.tsx';
 import { SetSelectorModal } from './components/SetSelectorModal.tsx';
 import { SettingsModal, loadSettings, applyTheme, type AppSettings, type TermDefinitionsSetting } from './components/SettingsModal.tsx';
 import { SetGlossaryModal } from './components/SetGlossaryModal.tsx';
+import { ExportStudioModal } from './components/ExportStudioModal.tsx';
 import { InteractiveEquation } from './components/InteractiveEquation.tsx';
 import { AnalyticsView } from './components/AnalyticsView.tsx';
 import {
@@ -54,6 +55,7 @@ export const App: React.FC = () => {
   const [showSetSelector, setShowSetSelector] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showGlossaryModal, setShowGlossaryModal] = useState(false);
+  const [showExportStudio, setShowExportStudio] = useState(false);
 
   useEffect(() => {
     applyTheme(settings.theme);
@@ -230,6 +232,15 @@ export const App: React.FC = () => {
             aria-label="Deck Glossary"
           >
             Glossary
+          </button>
+          <button
+            type="button"
+            data-testid="nav-export-pdf-btn"
+            className="header-btn"
+            onClick={() => setShowExportStudio(true)}
+            aria-label="Export PDF"
+          >
+            Export PDF
           </button>
           <button
             type="button"
@@ -682,6 +693,20 @@ export const App: React.FC = () => {
           currentSettings={settings}
           onSave={(newSettings) => setSettings(newSettings)}
           onClose={() => setShowSettings(false)}
+        />
+      )}
+
+      {showExportStudio && activeSet && (
+        <ExportStudioModal
+          activeSet={activeSet}
+          onClose={() => setShowExportStudio(false)}
+          onEditCard={(cardId) => {
+            const card = activeSet.cards.find((c) => c.id === cardId);
+            if (card) {
+              setEditingCard(card);
+              setShowCardCreator(true);
+            }
+          }}
         />
       )}
     </>

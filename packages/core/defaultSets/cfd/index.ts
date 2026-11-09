@@ -13,6 +13,7 @@ import { CFD_COMBUSTION_CHEMISTRY_CARDS } from './11-combustion-chemistry.js';
 import { CFD_AEROACOUSTICS_AERODYNAMICS_SPECIAL_CARDS } from './12-aeroacoustics-aerodynamics-special.js';
 
 export * from './types.js';
+export { CFD_GLOSSARY } from './glossary.js';
 export { CFD_FOUNDATIONS_CARDS } from './01-foundations.js';
 export { CFD_GOVERNING_EQUATIONS_CARDS } from './02-governing-equations.js';
 export { CFD_THERMODYNAMICS_TRANSPORT_CARDS } from './03-thermodynamics-transport.js';

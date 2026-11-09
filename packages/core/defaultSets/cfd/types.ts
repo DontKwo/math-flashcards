@@ -1,3 +1,5 @@
+import type { TermDefinition } from '../../model/index.js';
+
 export interface CfdFlashcardItem {
   id: string;
   category: string;
@@ -6,4 +8,5 @@ export interface CfdFlashcardItem {
   latexAnswer: string;
   hint?: string;
   explanation: string;
+  terms?: TermDefinition[];
 }

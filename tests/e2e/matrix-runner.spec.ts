@@ -183,3 +183,47 @@ test.describe('UI Matrix Layer', () => {
     await assertInvariants(page, 'learn-after-soak');
   });
 });
+
+test.describe('PDF Export Studio E2E', () => {
+  test('@smoke Open Export Studio and navigate tabs', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForSelector('[data-testid="nav-export-pdf-btn"]');
+
+    // Open export studio
+    await page.click('[data-testid="nav-export-pdf-btn"]');
+    await page.waitForSelector('[data-testid="export-studio-modal"]');
+    await assertInvariants(page, 'export-studio-modal');
+
+    // Switch between tabs
+    await page.click('[data-testid="studio-tab-layout"]');
+    await page.waitForSelector('[data-testid="layout-pagesize-select"]');
+
+    await page.click('[data-testid="studio-tab-content"]');
+    await page.waitForSelector('[data-testid="content-layout-mode-select"]');
+
+    await page.click('[data-testid="studio-tab-style"]');
+    await page.waitForSelector('[data-testid="style-font-family-select"]');
+
+    await page.click('[data-testid="studio-tab-presets"]');
+    await page.waitForSelector('[data-testid="new-preset-name-input"]');
+    await assertInvariants(page, 'export-studio-presets-tab');
+
+    // Close modal
+    await page.click('[data-testid="export-studio-close-btn"]');
+  });
+
+  test('@matrix Toggle layout options and verify live preview updates', async ({ page }) => {
+    await page.goto('/');
+    await page.click('[data-testid="nav-export-pdf-btn"]');
+    await page.waitForSelector('[data-testid="studio-tab-layout"]');
+
+    await page.click('[data-testid="studio-tab-layout"]');
+    await page.selectOption('[data-testid="layout-columns-select"]', '3');
+    await page.click('[data-testid="layout-orient-landscape-btn"]');
+
+    await page.waitForTimeout(300); // allow debounce
+    await assertInvariants(page, 'export-studio-landscape-3col');
+
+    await page.click('[data-testid="export-studio-close-btn"]');
+  });
+});

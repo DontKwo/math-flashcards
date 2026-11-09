@@ -1522,5 +1522,446 @@
     "preconditions": "Hint before answering mode",
     "inputs": [],
     "expectedEffect": "Reveals hidden formula symbols"
+  },
+  {
+    "screen": "auto",
+    "testId": "nav-export-pdf-btn",
+    "role": "button",
+    "label": "nav export pdf btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "empty-add-card-btn",
+    "role": "button",
+    "label": "empty add card btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "toast-undo-btn",
+    "role": "button",
+    "label": "toast undo btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-modal",
+    "role": "region",
+    "label": "export studio modal",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-deck-name",
+    "role": "region",
+    "label": "export studio deck name",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-close-btn",
+    "role": "button",
+    "label": "export studio close btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-counter",
+    "role": "region",
+    "label": "export studio counter",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-warning-badge",
+    "role": "region",
+    "label": "export studio warning badge",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-preview-viewport",
+    "role": "region",
+    "label": "export studio preview viewport",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "studio-tab-cards",
+    "role": "region",
+    "label": "studio tab cards",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "studio-tab-layout",
+    "role": "region",
+    "label": "studio tab layout",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "studio-tab-content",
+    "role": "region",
+    "label": "studio tab content",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "studio-tab-style",
+    "role": "region",
+    "label": "studio tab style",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "studio-tab-presets",
+    "role": "region",
+    "label": "studio tab presets",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-filter-search",
+    "role": "region",
+    "label": "cards filter search",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-filter-category",
+    "role": "region",
+    "label": "cards filter category",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-select-all-btn",
+    "role": "button",
+    "label": "cards select all btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-select-none-btn",
+    "role": "button",
+    "label": "cards select none btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-select-invert-btn",
+    "role": "button",
+    "label": "cards select invert btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "cards-sort-select",
+    "role": "select",
+    "label": "cards sort select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-pagesize-select",
+    "role": "select",
+    "label": "layout pagesize select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-orient-portrait-btn",
+    "role": "button",
+    "label": "layout orient portrait btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-orient-landscape-btn",
+    "role": "button",
+    "label": "layout orient landscape btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-margins-select",
+    "role": "select",
+    "label": "layout margins select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-columns-select",
+    "role": "select",
+    "label": "layout columns select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-fill-down-btn",
+    "role": "button",
+    "label": "layout fill down btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-fill-across-btn",
+    "role": "button",
+    "label": "layout fill across btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-container-style-select",
+    "role": "select",
+    "label": "layout container style select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-group-categories-toggle",
+    "role": "region",
+    "label": "layout group categories toggle",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "layout-fit-pages-input",
+    "role": "input",
+    "label": "layout fit pages input",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-layout-mode-select",
+    "role": "select",
+    "label": "content layout mode select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-show-title-toggle",
+    "role": "region",
+    "label": "content show title toggle",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-show-number-toggle",
+    "role": "region",
+    "label": "content show number toggle",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-show-hints-toggle",
+    "role": "region",
+    "label": "content show hints toggle",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-include-appendix-toggle",
+    "role": "region",
+    "label": "content include appendix toggle",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-terms-mode-select",
+    "role": "select",
+    "label": "content terms mode select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "content-header-text-input",
+    "role": "input",
+    "label": "content header text input",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "style-font-family-select",
+    "role": "select",
+    "label": "style font family select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "style-color-theme-select",
+    "role": "select",
+    "label": "style color theme select",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "style-global-scale-slider",
+    "role": "region",
+    "label": "style global scale slider",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "style-formula-scale-slider",
+    "role": "region",
+    "label": "style formula scale slider",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "new-preset-name-input",
+    "role": "input",
+    "label": "new preset name input",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "save-preset-submit-btn",
+    "role": "button",
+    "label": "save preset submit btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-progress-text",
+    "role": "region",
+    "label": "export progress text",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-error-text",
+    "role": "region",
+    "label": "export error text",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-success-text",
+    "role": "region",
+    "label": "export success text",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-cancel-btn",
+    "role": "button",
+    "label": "export cancel btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-studio-cancel-btn",
+    "role": "button",
+    "label": "export studio cancel btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
+  },
+  {
+    "screen": "auto",
+    "testId": "export-pdf-action-btn",
+    "role": "button",
+    "label": "export pdf action btn",
+    "preconditions": "visible",
+    "inputs": [],
+    "expectedEffect": "interaction"
   }
 ]
